@@ -8,51 +8,80 @@ export async function POST(req) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    var apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "ANTHROPIC_API_KEY not configured" },
+        { error: "GEMINI_API_KEY not configured" },
         { status: 500 }
       );
     }
 
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    // Build Gemini conversation format
+    var contents = [];
+
+    for (var i = 0; i < messages.length; i++) {
+      contents.push({
+        role: messages[i].role === "user" ? "user" : "model",
+        parts: [{ text: messages[i].text }],
+      });
+    }
+
+    var url =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
+      apiKey;
+
+    var res = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 350,
-        system: systemPrompt,
-        messages: messages.map(function (m) {
-          return {
-            role: m.role === "user" ? "user" : "assistant",
-            content: m.text,
-          };
-        }),
+        system_instruction: {
+          parts: [{ text: systemPrompt }],
+        },
+        contents: contents,
+        generationConfig: {
+          maxOutputTokens: 350,
+          temperature: 0.9,
+        },
       }),
     });
 
     if (!res.ok) {
-      const err = await res.json().catch(function () {
+      var errData = await res.json().catch(function () {
         return {};
       });
-      console.error("Anthropic error:", err);
+      console.error("Gemini chat error:", JSON.stringify(errData));
       return NextResponse.json(
-        { error: err?.error?.message || "Claude API error " + res.status },
+        {
+          error:
+            errData?.error?.message || "Gemini API error " + res.status,
+        },
         { status: res.status }
       );
     }
 
-    const data = await res.json();
-    const text = data.content
-      .map(function (b) {
-        return b.text || "";
-      })
-      .join("");
+    var data = await res.json();
+
+    var text = "";
+    if (
+      data &&
+      data.candidates &&
+      data.candidates[0] &&
+      data.candidates[0].content &&
+      data.candidates[0].content.parts
+    ) {
+      for (var j = 0; j < data.candidates[0].content.parts.length; j++) {
+        if (data.candidates[0].content.parts[j].text) {
+          text += data.candidates[0].content.parts[j].text;
+        }
+      }
+    }
+
+    if (!text) {
+      return NextResponse.json(
+        { error: "No response generated" },
+        { status: 422 }
+      );
+    }
 
     return NextResponse.json({ text: text });
   } catch (e) {
