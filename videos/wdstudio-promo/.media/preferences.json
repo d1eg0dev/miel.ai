@@ -35,6 +35,13 @@
         "wdstudio-promo"
       ],
       "updated_at": "2026-10-01T01:51:46.437Z"
+    },
+    "style_preset.product-launch-video": {
+      "value": "cartesian",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:59:56.143Z"
     }
   },
   "sightings": {}

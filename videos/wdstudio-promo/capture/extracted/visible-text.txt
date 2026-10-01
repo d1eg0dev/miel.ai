@@ -1,0 +1,110 @@
+[a] Services
+[a] Approach
+[a] Start a project
+[p] Design & Development Studio · Est. 2019 · Worldwide
+[h1] WD STUDIO
+[p] Digital identity for the world’s most beautiful properties.
+[a] See the work
+[a] Start a project
+[p] The studio
+[h2] We are curators
+[h2] of aesthetics.
+[p] A beautiful property already knows what it is. The architect decided it, the light confirmed it, and the people who stay there feel it before they can name it. Our work is not to invent that — it is to
+[strong] carry it intact into a screen
+[p] That means reading a house before designing for it. The amber of Casa Copal, the palapa at Nautilus, the cliff that Tritón is built into — each one asked for a different structure, a different pace, a different way of holding a photograph. None of them could have used the same template, and none of them did.
+[p] We build websites, custom software, photography and AI systems. But what a client actually buys is
+[strong] judgment
+[p] : knowing what to leave out.
+[div] 2019
+[div] Founded
+[div] 50+
+[div] Projects delivered
+[div] Countries
+[div] 100%
+[div] Built from scratch
+[p] Selected work
+[h2] Properties that
+[h2] already live online.
+[span] Casa Copal
+[span] casa-copal.com
+[p] Private estate in Costa Careyes, architecture by Manolo Mestre. An editorial site built around the amber and stone of the house itself.
+[span] Casa Candelabros
+[span] casa-candelabros.com
+[p] Luxury villa in Careyes. A wide editorial grid designed so the photography leads and the writing follows.
+[span] Villas Tritón
+[span] villastritoncareyes.com
+[p] Three houses connected along the cliff. Information architecture that lets you browse the estate whole, or each house on its own.
+[span] Casa Nautilus
+[span] nautiluscareyes.com
+[p] Four-bedroom villa beneath a palapa. Video, gallery and direct booking — no intermediaries, no commission.
+[span] Pacific Luxury Villas
+[span] pacificluxuryvillas.com
+[p] Real estate portfolio in Costa Careyes with a bilingual AI assistant that qualifies buyers and answers around the clock.
+[span] AI · Real estate assistant
+[span] Casa Tauro
+[span] casatauro.com
+[p] Oceanfront house with direct WhatsApp booking built into the site. From search to conversation in one tap.
+[span] WhatsApp booking
+[p] Services
+[h2] Four things,
+[h2] done properly.
+[h3] Websites
+[p] Design · Development · SEO
+[p] Fully custom sites for villas, hotels and developments. No templates and no page builders — every project is designed around the property it belongs to, then built to load fast and rank.
+[h3] Custom software
+[p] Booking · CRM · Integrations
+[p] Direct booking systems, inquiry management, payments and the integrations that remove intermediaries. Owners keep the guest relationship, and the commission.
+[h3] Photography & video
+[p] Stills · Motion · Drone
+[p] Architectural and lifestyle photography, film and aerial work — shot for the way the property will actually be seen: on a phone, in a newsletter, on a listing.
+[h3] AI development
+[p] Assistants · Automation
+[p] Bilingual assistants that qualify inquiries and answer at any hour, plus automation for the parts of a property business that should not need a person awake.
+[p] Approach
+[h2] How a project runs.
+[h4] Read
+[p] We study the property, its architecture, its guests and what it competes with. Nothing is designed before this.
+[h4] Shape
+[p] Structure and art direction. Which photograph opens, what the visitor reads first, where the decision happens.
+[div] III
+[h4] Build
+[p] Development, content, systems and integrations. Fast, accessible and built to be maintained.
+[h4] Hand over
+[p] Launch, training and support. You own every file, every account and every asset. No hostage-taking.
+[p] Contact
+[h2] Tell us about
+[h2] the property.
+[p] We take on a small number of projects at a time. Tell us what you have and we’ll reply within one business day — with an honest answer about whether we’re the right studio for it.
+[span] Projects from $1,200 USD, priced as a fixed scope
+[span] Reply within one business day, always from Diego
+[span] Worldwide — we work remotely and travel when the project needs it
+[span] You own every file and account from day one
+[label] Name
+[label] Email
+[label] Property or company
+[label] What you need
+[option] Select one
+[option] Website
+[option] Custom software
+[option] Photography & video
+[option] AI development
+[option] Full project
+[label] Budget
+[option] Select a range
+[option] $1,200 – $3,000
+[option] $3,000 – $6,000
+[option] $6,000 – $12,000
+[option] $12,000 – $25,000
+[option] $25,000+
+[label] About the project
+[button] Send inquiry
+[h4] Received.
+[p] We’ll be in touch within one business day.
+[p] Your information stays with us. We never share or sell it.
+[h4] Studio notes
+[p] New work and occasional notes on designing for luxury property. A few times a year, never more.
+[button] Join
+[span] © 2026 ·
+[span] Digital identity for beautiful properties
+[a] diego@wdstudio.agency
+[a] WhatsApp

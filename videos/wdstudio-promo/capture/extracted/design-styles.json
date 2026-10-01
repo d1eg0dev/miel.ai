@@ -1,0 +1,192 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Helios Ext",
+      "fontSize": "131.2px",
+      "fontWeight": "400",
+      "lineHeight": "131.2px",
+      "letterSpacing": "0.656px",
+      "color": "#F4F2ED",
+      "sampleText": "WD STUDIO"
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "54.4px",
+      "fontWeight": "300",
+      "lineHeight": "62.016px",
+      "letterSpacing": "-0.544px",
+      "color": "#0B0B0B",
+      "sampleText": "We are curatorsof aesthetics."
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "33.6px",
+      "fontWeight": "300",
+      "lineHeight": "40.32px",
+      "letterSpacing": "normal",
+      "color": "#0B0B0B",
+      "sampleText": "Websites"
+    },
+    {
+      "role": "heading-4",
+      "fontFamily": "Cormorant Garamond",
+      "fontSize": "22.4px",
+      "fontWeight": "400",
+      "lineHeight": "36.96px",
+      "letterSpacing": "normal",
+      "color": "#0B0B0B",
+      "sampleText": "Read"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Inter",
+      "fontSize": "19px",
+      "fontWeight": "300",
+      "lineHeight": "35.15px",
+      "letterSpacing": "normal",
+      "color": "#404040",
+      "sampleText": "A beautiful property already knows what it is. The architect"
+    },
+    {
+      "role": "link",
+      "fontFamily": "Inter",
+      "fontSize": "16px",
+      "fontWeight": "300",
+      "lineHeight": "26.4px",
+      "letterSpacing": "normal",
+      "color": "#0B0B0B",
+      "sampleText": ""
+    },
+    {
+      "role": "label",
+      "fontFamily": "Inter",
+      "fontSize": "9.5px",
+      "fontWeight": "300",
+      "lineHeight": "15.675px",
+      "letterSpacing": "1.9px",
+      "color": "#FFFFFF",
+      "sampleText": "AI · Real estate assistant"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      5,
+      10,
+      12,
+      14,
+      16,
+      17,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      34,
+      38
+    ],
+    "baseUnit": 4
+  },
+  "radius": [],
+  "shadows": [],
+  "buttons": [
+    {
+      "label": "See the work",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#0B0B0B",
+      "padding": "16px 34px",
+      "borderRadius": "0px",
+      "border": "1px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "300",
+      "height": "52.1406px"
+    },
+    {
+      "label": "Start a project",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "16px 34px",
+      "borderRadius": "0px",
+      "border": "1px solid rgba(255, 255, 255, 0.55)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "300",
+      "height": "52.1406px"
+    },
+    {
+      "label": "Send inquiry",
+      "background": "#0B0B0B",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "17px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "400",
+      "height": "48px"
+    },
+    {
+      "label": "Join",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "13px 0px 13px 22px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "10px",
+      "fontWeight": "400",
+      "height": "45px"
+    }
+  ],
+  "cards": [],
+  "nav": {
+    "label": "navigation",
+    "background": "transparent",
+    "backgroundImage": "",
+    "backdropFilter": "",
+    "color": "#0B0B0B",
+    "padding": "22px 0px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "300",
+    "height": "85.1406px"
+  },
+  "chips": [
+    {
+      "label": "AI · Real estate assista",
+      "background": "transparent",
+      "color": "#FFFFFF",
+      "padding": "6px 12px",
+      "borderRadius": "0px",
+      "border": "1px solid rgb(64, 64, 64)",
+      "boxShadow": "none",
+      "fontSize": "9.5px",
+      "fontWeight": "300",
+      "height": "29.6719px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [
+    {
+      "value": "linear-gradient(rgba(0, 0, 0, 0) 45%, rgba(11, 11, 11, 0.75) 100%)",
+      "area": 2073600
+    }
+  ],
+  "glass": []
+}
