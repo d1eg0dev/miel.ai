@@ -2,7 +2,7 @@
 import numpy as np
 from scipy.io import wavfile
 from scipy.signal import fftconvolve, butter, sosfilt
-SR=48000; DUR=45.0; N=int(SR*DUR)
+SR=48000; DUR=50.5; N=int(SR*DUR)
 rng=np.random.default_rng(7)
 L=np.zeros(N); R=np.zeros(N)
 def hz(m): return 440*2**((m-69)/12)
@@ -37,40 +37,64 @@ def tick(vel=.12,f=2600):
 def click(vel=.18):
     t=np.arange(int(SR*.06))/SR; w=rng.standard_normal(len(t)); sos=butter(2,[1500,6000],'bp',fs=SR,output='sos')
     return sosfilt(sos,w)*np.exp(-t*120)*vel
-# --- harmonic bed: Fmaj9 | Dm9 | Bbmaj7 | C/E ... (F major, slow) ---
-chords=[(0,[53,57,60,64,67]),(10,[50,53,57,60,64]),(17,[46,50,53,57,60]),(22,[53,57,60,64,67]),(31,[46,50,53,57,62]),(38,[53,57,60,64,69])]
+# --- keynote-style UI sounds ---
+def ui_click(vel=.5):
+    t=np.arange(int(SR*.09))/SR
+    body=np.sin(2*np.pi*1800*t)*np.exp(-t*160)+.6*np.sin(2*np.pi*3600*t)*np.exp(-t*260)
+    nz=sosfilt(butter(2,[3000,9000],'bp',fs=SR,output='sos'),rng.standard_normal(len(t)))*np.exp(-t*400)*.5
+    return (body+nz)*vel
+def whoosh(dur=.7,vel=.35,rise=True):
+    n=int(SR*dur); t=np.arange(n)/SR; w=rng.standard_normal(n); out=np.zeros(n); seg=1024
+    for k in range(0,n,seg):
+        u=k/n; fc=(400+5600*u) if rise else (6000-5600*u)
+        out[k:k+seg]=sosfilt(butter(2,[fc*.6,fc*1.4],'bp',fs=SR,output='sos'),w[k:k+seg])
+    env=np.sin(np.pi*np.clip(t/dur,0,1))**1.5; return out*env*vel
+def pop(f=880,vel=.4):
+    t=np.arange(int(SR*.35))/SR; fr=f*(1+.5*np.exp(-t*60))
+    s=np.sin(2*np.pi*np.cumsum(fr)/SR)*np.exp(-t*14)+.4*np.sin(2*np.pi*f/2*t)*np.exp(-t*20)
+    return s*np.minimum(1,t/.002)*vel
+def dtick(f=3200,vel=.22):
+    t=np.arange(int(SR*.03))/SR; return (np.sin(2*np.pi*f*t)+.3*np.sign(np.sin(2*np.pi*f*t)))*np.exp(-t*220)*vel
+def shimmer(ms,vel=.3,dur=3):
+    out=None
+    for k,m in enumerate(ms):
+        b=bell(m,vel,dur); b=np.pad(b,(int(SR*.035*k),0))[:int(SR*dur)]
+        out=b if out is None else out+b
+    return out
+# --- harmonic bed (quiet) ---
+chords=[(0,[53,57,60,64,67]),(10,[50,53,57,60,64]),(17,[46,50,53,57,60]),(22,[53,57,60,64,67]),(31,[46,50,53,57,62]),(38,[53,57,60,64,69]),(47,[53,60,65,69,72])]
 for i,(t0,ms) in enumerate(chords):
     t1=chords[i+1][0]+1.5 if i+1<len(chords) else DUR
-    add(pad(ms,t1-t0+.5),t0,0,1.0)
-# --- sparse piano motif, landing on the reveals ---
-for t,m,v in [(1.2,72,.32),(1.9,69,.22),(2.6,67,.2),(6.6,62,.3),(7.4,65,.22),(10.4,57,.25),(17.6,72,.28),(18.8,76,.3),(19.6,74,.2),
-              (23.8,79,.18),(25.8,77,.18),(27.8,76,.2),(29.4,72,.18),(34.4,81,.25),(35.2,77,.2),(36.2,72,.2),
-              (38.2,69,.25),(39.4,72,.28),(41.4,77,.3),(42.2,81,.22)]:
+    add(pad(ms,t1-t0+.5,.09),t0,0,1.0)
+for t,m,v in [(1.2,72,.2),(6.6,62,.2),(17.6,72,.18),(18.8,76,.2),(38.3,69,.18),(39.5,72,.2),(43.6,77,.18)]:
     add(piano(m,5,v),t,pan=(m-70)/30)
-for m in (41,48): add(piano(m,6,.25),41.4,-.2)   # final low root
-# --- sound hooks synced to animation ---
-add(swell(1.6,.10),0.0)                 # f1 hairline draw
-add(thud(.45),6.55)                     # f2 bold line lands
-add(swell(1.2,.08,300,2000),10.0)        # seam into 16%
-for k in range(16):                     # counter 0→16 (ease-out spacing)
-    u=(k+1)/16; tt=10.6+2.2*(1-(1-u)**0.5)
-    add(tick(.06+.04*u,2200+40*k),tt)
-add(bell(64,.18),12.8)                  # count settles
-add(swell(1.4,.09),17.0)                # into direct
-add(bell(76,.16),18.75)                 # "on your site."
-add(click(.16),23.8); add(click(.12),24.0)  # dates selected
-add(click(.16),27.4)                    # extras step
-add(swell(1.0,.07),31.0)
-for k in range(10): add(tick(.05,3000+60*k),34.4+1.8*(1-(1-(k+1)/10)**0.5))
-add(bell(69,.22),36.2); add(bell(76,.16),36.25)   # $530 lands
-add(swell(1.4,.1),40.8)                 # signature hairline
-add(bell(65,.18,7),41.5)                # wordmark
+# --- transitions: whooshes on every seam ---
+for t in (9.75,16.75,21.75,30.75,37.75,42.75,46.75): add(whoosh(.7,.30),t)
+# --- reveals ---
+add(whoosh(1.0,.18),0.15); add(pop(1320,.28),1.3)          # hairline, line
+add(pop(660,.42),6.6); add(thud(.35),6.6)                   # bold line
+add(pop(1100,.3),10.05)                                     # label
+for k in range(16):
+    u=(k+1)/16; add(dtick(2600+60*k,.16+.08*u),10.6+2.2*(1-(1-u)**0.5))
+add(shimmer([72,76,79],.22),12.8)                           # 16% lands
+for k,t in enumerate((13.0,13.6,14.2)): add(pop(1200+k*120,.2),t)
+add(pop(1320,.28),17.5); add(pop(880,.36),18.7); add(shimmer([76,79,84],.16),18.75)
+add(whoosh(.5,.18),22.0)                                    # card rises
+add(ui_click(.5),23.8); add(ui_click(.35),24.05)            # pick dates
+for t in (24.0,25.8,27.8): add(pop(1250,.22),t)
+add(ui_click(.45),27.4)                                     # extras step
+add(whoosh(.5,.15),31.0); add(ui_click(.3),33.0)            # highlight
+for k in range(14): add(dtick(3000+70*k,.14+.08*(k+1)/14),34.4+1.8*(1-(1-(k+1)/14)**0.5))
+add(shimmer([69,76,81],.3),36.2)                            # $530 USD
+add(pop(1320,.26),38.2); add(pop(660,.4),39.4)             # rules
+add(whoosh(.8,.16),43.1); add(pop(1100,.22),43.6)           # identity
+add(shimmer([65,72,77,81],.3,4),47.0); add(thud(.3),47.0)   # logo
 # --- reverb, master ---
 ir_t=np.arange(int(SR*3.2))/SR
 ir=rng.standard_normal((2,len(ir_t)))*np.exp(-ir_t*2.2); ir[:,0]=0
 wetL=fftconvolve(L,ir[0])[:N]; wetR=fftconvolve(R,ir[1])[:N]
 mixL=L+wetL*0.012; mixR=R+wetR*0.012
-fade=np.ones(N); fi=int(SR*1.5); fo=int(SR*3)
+fade=np.ones(N); fi=int(SR*.3); fo=int(SR*2)
 fade[:fi]=np.linspace(0,1,fi); fade[-fo:]=np.linspace(1,0,fo)
 st=np.stack([mixL*fade,mixR*fade],1)
 st=np.tanh(st/np.max(np.abs(st))*1.2)*0.85

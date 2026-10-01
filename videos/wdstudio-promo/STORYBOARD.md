@@ -1,6 +1,6 @@
 ---
 format: 1920x1080
-duration: 45s
+duration: 50.5s
 message: "Your guest books on your site — no platform, no commission"
 arc: Quiet hook → The fee → The alternative → The product, calmly → What you keep → Signature
 audience: Luxury villa owners and hospitality businesses
@@ -139,21 +139,50 @@ keyMessage: A complete booking system on your site.
 narrativeRole: Make the margin tangible, with the system's own receipt.
 keyMessage: Every direct booking keeps the fee in your pocket.
 
-## Frame 7 — Signature
+## Frame 7 — Your house. Your rules.
 
-- scene: Canvas clears. "Your house. Your rules." (200) / "No platform." (600). Hairline, then WD STUDIO tracked wordmark, "Digital identity for the world's most beautiful properties.", wdstudio.agency.
+- scene: Centred: "Your house. Your rules." (200) / "No platform." (600).
 - voiceover: ""
-- onscreen: "Your house. Your rules. No platform. — WD STUDIO · wdstudio.agency"
-- duration: 7s
+- duration: 5s
 - transition_in: crossfade
 - status: animated
-- src: compositions/frames/07-signature.html
-- shots: Scene 1 (0–1.5s): 'Your house. Your rules.' (200) fades up → Scene 2 (1.3–2.6s): 'No platform.' (600) → Scene 3 (2.8–3.8s): hairline draws from centre → Scene 4 (3.6–5s): WD STUDIO tracked wordmark + descriptor → Scene 5 (5–7s): gold URL; final settle (global opacity hold).
+- src: compositions/frames/07-rules.html
 - type: cta
 - persuasion: Identity / status
 - beat: quiet confidence
-- blueprint: logo-assemble-lockup
-- asset_candidates: assets/logo-dark.png — WD STUDIO wordmark for light grounds
+- asset_candidates:
 
-narrativeRole: Close with the deck's line and the studio's signature.
-keyMessage: WD Studio — wdstudio.agency.
+narrativeRole: The thesis, alone on the canvas.
+keyMessage: Independence from platforms.
+
+## Frame 8 — Digital identity
+
+- scene: Centred gold hairline, "Digital identity for the world's most beautiful properties.", wdstudio.agency.
+- voiceover: ""
+- duration: 4s
+- transition_in: crossfade
+- status: animated
+- src: compositions/frames/08-identity.html
+- type: cta
+- persuasion: Authority
+- beat: trust
+- asset_candidates:
+
+narrativeRole: Who WD Studio is, and where to go.
+keyMessage: wdstudio.agency.
+
+## Frame 9 — Logo
+
+- scene: User's animated WD STUDIO logo (1.23s) on white, then holds on its final frame.
+- voiceover: ""
+- duration: 3.5s
+- transition_in: crossfade
+- status: animated
+- src: compositions/frames/09-logo.html
+- type: cta
+- persuasion: Signature
+- beat: resolve
+- asset_candidates: assets/logo-anim.mp4 — user-supplied animated logo; assets/logo-end.png — its last frame
+
+narrativeRole: Close on the brand mark.
+keyMessage: WD Studio.

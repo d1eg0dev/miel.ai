@@ -37,11 +37,11 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="45"
+      data-duration="50.5"
       data-width="1920"
       data-height="1080"
     >
-      <audio id="score" src="assets/audio/score.m4a" data-start="0" data-duration="45" data-track-index="11" data-volume="1"></audio>
+      <audio id="score" src="assets/audio/score.m4a" data-start="0" data-duration="50.5" data-track-index="11" data-volume="1"></audio>
       <div
         id="el-01-open"
         class="scene"
@@ -103,14 +103,42 @@
       ></div>
 
       <div
-        id="el-07-signature"
+        id="el-07-rules"
         class="scene"
-        data-composition-id="07-signature"
-        data-composition-src="compositions/frames/07-signature.html"
+        data-composition-id="07-rules"
+        data-composition-src="compositions/frames/07-rules.html"
         data-start="38"
-        data-duration="7"
+        data-duration="5.5"
         data-track-index="0"
       ></div>
+
+      <div
+        id="el-08-identity"
+        class="scene"
+        data-composition-id="08-identity"
+        data-composition-src="compositions/frames/08-identity.html"
+        data-start="43"
+        data-duration="4.5"
+        data-track-index="1"
+      ></div>
+
+      <div
+        id="el-09-logo"
+        class="scene"
+        data-composition-id="09-logo"
+        data-composition-src="compositions/frames/09-logo.html"
+        data-start="47"
+        data-duration="3.5"
+        data-track-index="0"
+      ></div>
+
+      <video id="f09-video" src="assets/logo-anim.mp4" muted playsinline
+        class="clip"
+        style="position:absolute;left:0px;top:0px;width:1920px;height:1080px;object-fit:cover"
+        data-start="47"
+        data-duration="1.23"
+        data-track-index="9003"
+      ></video>
 
     </div>
 
@@ -128,8 +156,12 @@
         tl.to("#el-05-booking", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 31);
         tl.fromTo("#el-06-kept", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 31);
         tl.to("#el-06-kept", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 38);
-        tl.fromTo("#el-07-signature", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 38);
-        tl.to({}, { duration: 45 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
+        tl.fromTo("#el-07-rules", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 38);
+        tl.to("#el-07-rules", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 43);
+        tl.fromTo("#el-08-identity", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 43);
+        tl.to("#el-08-identity", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 47);
+        tl.fromTo("#el-09-logo", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 47);
+        tl.to({}, { duration: 50.5 }, 0); // full-span anchor — main.duration() == composition total (Studio master duration)
       })();
     </script>
   </body>
