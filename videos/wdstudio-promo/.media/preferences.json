@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "youtube",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:51:46.158Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:51:46.226Z"
+    },
+    "language": {
+      "value": "en",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:51:46.291Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:51:46.356Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "wdstudio-promo"
+      ],
+      "updated_at": "2026-10-01T01:51:46.437Z"
+    }
+  },
+  "sightings": {}
+}
