@@ -1,0 +1,43 @@
+<template>
+<div id="root" data-composition-id="05-booking" data-start="0" data-duration="9.5" data-width="1920" data-height="1080">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;src:url("assets/fonts/captured-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format('woff2');}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;color:#141412}
+.f05booking-bg{position:absolute;inset:0;background:#FBFAF8}
+.f05booking-wm{position:absolute;left:64px;top:52px;font-size:13px;letter-spacing:5px;color:#75736E;font-weight:500}
+.f05booking-lab{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#8A7040;font-weight:500}
+.f05booking-hair{height:1px;background:#B69455;transform-origin:left center}
+.f05booking-l{font-weight:200} .f05booking-b{font-weight:600}
+
+#f05-card{position:absolute;left:150px;top:150px;width:840px;height:744px;background:#fff;box-shadow:0 40px 100px rgba(20,20,18,.09);overflow:hidden}
+#f05-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+#f05-side{position:absolute;left:1150px;top:400px;font-size:44px;line-height:1.9}
+
+</style>
+<div id="f05booking-ground" class="clip f05booking-bg" data-start="0" data-duration="9.5" data-track-index="0"></div>
+<div id="f05booking-content" class="clip" data-start="0" data-duration="9.5" data-track-index="1" style="position:absolute;inset:0">
+<div class="f05booking-wm">WD STUDIO</div>
+<div id="f05-card"><img id="f05-i1" src="assets/ui-calendar-empty.png"><img id="f05-i2" src="assets/ui-calendar-selected.png"><img id="f05-i3" src="assets/ui-extras.png"></div>
+<div id="f05-side"><div class="f05booking-lab" id="f05-lab" style="line-height:1;margin-bottom:24px">The system</div>
+<div class="f05booking-l" id="f05-s1">Live availability.</div><div class="f05booking-l" id="f05-s2">Your rates, your seasons.</div><div class="f05booking-b" id="f05-s3">Extras you define.</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function(){
+window.__timelines=window.__timelines||{};
+const tl=gsap.timeline({paused:true});
+
+tl.fromTo("#f05-card",{opacity:0,y:40},{opacity:1,y:0,duration:1.4,ease:"power3.out"},0);
+tl.fromTo("#f05-card",{scale:1},{scale:1.03,duration:9,ease:"none",immediateRender:false},0);
+tl.fromTo("#f05-i2",{opacity:0},{opacity:1,duration:1.0,ease:"power1.inOut"},1.8);
+tl.fromTo("#f05-i3",{opacity:0},{opacity:1,duration:1.2,ease:"power1.inOut"},5.4);
+tl.fromTo("#f05-lab",{opacity:0},{opacity:1,duration:0.8},0.8);
+tl.fromTo("#f05-s1",{opacity:0,y:14},{opacity:1,y:0,duration:1,ease:"power2.out"},2.0);
+tl.fromTo("#f05-s2",{opacity:0,y:14},{opacity:1,y:0,duration:1,ease:"power2.out"},3.8);
+tl.fromTo("#f05-s3",{opacity:0,y:14},{opacity:1,y:0,duration:1,ease:"power2.out"},5.8);
+
+window.__timelines["05-booking"]=tl;
+})();
+</script>
+</div>
+</template>

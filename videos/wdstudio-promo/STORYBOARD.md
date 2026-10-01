@@ -15,6 +15,14 @@ music: silent luxury minimal piano, sparse, warm, slow, refined
 - User: do not use the villa hero image.
 - User: "silent luxury" narrative — fewer words, more space, understatement.
 
+## Video direction
+
+One continuous warm-white room (#FBFAF8). Silence and space: slow eases (power2/power3), nothing faster than 0.8s, no bounce. Gold only in hairlines and labels; green only for money kept. Inter 200/600 display pairs. Booking UI appears as a soft white card with a long, faint shadow. Every seam is a slow dissolve.
+
+## Locked
+
+- v2 approved by user; frame 3: no country named, footnote "Platform fees vary by country."
+
 ## Frame 1 — Quiet open
 
 - scene: Warm off-white canvas. A thin gold hairline draws left→right. Small tracked label "WD STUDIO". One light line fades in: "A guest finds your house."
@@ -22,8 +30,10 @@ music: silent luxury minimal piano, sparse, warm, slow, refined
 - onscreen: "A guest finds your house."
 - duration: 5s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/01-open.html
+- shots: Scene 1 (0–1.2s): empty canvas, hairline draws L→R (scaleX 0→1, 1.2s, power2.inOut) → Scene 2 (1.2–3s): line 'A guest finds your house.' rises 16px + fades in (1.4s, power3.out) → Scene 3 (3–5s): slow global drift up 8px (camera breath).
+- handoff_out: hairline x=230 y=480 width=115 opacity=1; line1 x=230 y=520 opacity=1
 - type: hook
 - persuasion: Understatement
 - beat: calm curiosity
@@ -40,8 +50,10 @@ keyMessage: It starts with your guest.
 - onscreen: "Then pays a platform to book it."
 - duration: 5s
 - transition_in: cut
-- status: built
+- status: animated
 - src: compositions/frames/02-platform.html
+- shots: Scene 1 (0–0.6s): hold frame-1 state exactly → Scene 2 (0.6–1.6s): line1 greys to #8E8B85 → Scene 3 (1.6–3.2s): bold line 'Then pays a platform to book it.' slides up 20px + fades (1.2s) → Scene 4: hold breath.
+- handoff_in: hairline x=230 y=480 width=115 opacity=1; line1 x=230 y=520 opacity=1
 - type: problem
 - persuasion: Negative contrast
 - beat: quiet tension
@@ -53,18 +65,19 @@ keyMessage: Someone stands between you and your guest.
 
 ## Frame 3 — 16%
 
-- scene: Large Inter 200 "16%" counts up from 0; small gold label "THE HOST FEE"; right column, small type: "Since September 2026, in Mexico. On 50,000 USD a year — 8,000 USD. Every year."
+- scene: Large Inter 200 "16%" counts up from 0; small gold label "THE HOST FEE"; right column, small type: "On 50,000 USD a year — 8,000 USD. Every year."; footnote micro-type bottom-left: "Platform fees vary by country."
 - voiceover: ""
-- onscreen: "16% of every booking. On 50,000 USD a year — 8,000 USD. Every year."
+- onscreen: "16% of every booking. On 50,000 USD a year — 8,000 USD. Every year. *Platform fees vary by country."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/03-fee.html
+- shots: Scene 1 (0–0.8s): gold label fades → Scene 2 (0.6–3s): '16%' counts 0→16 (2.2s, power2.out), slight scale 0.98→1 → Scene 3 (3–5s): right column lines fade in one by one (0.5s apart), '8,000 USD' last → Scene 4 (5–7s): footnote fades in; hold.
 - type: problem
 - persuasion: Statistical proof
 - beat: clarity
 - blueprint: dataviz-countup
-- asset_candidates: assets/s02.png — deck slide "16% of every booking" (layout reference only)
+- asset_candidates:
 
 narrativeRole: Quantify the cost quietly, with the deck's own figures.
 keyMessage: The fee is real and recurring.
@@ -76,13 +89,14 @@ keyMessage: The fee is real and recurring.
 - onscreen: "Your guest books on your site."
 - duration: 5s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/04-direct.html
+- shots: Scene 1 (0–0.8s): label → Scene 2 (0.6–2s): 'Your guest books' (200) rises → Scene 3 (1.8–3s): 'on your site.' (600) rises → Scene 4 (3.2–5s): sub-line fades; whole block drifts up 6px.
 - type: solution
 - persuasion: Reframe
 - beat: relief
 - blueprint: titlecard-reveal
-- asset_candidates: assets/s01.png — deck title slide (layout reference only)
+- asset_candidates:
 
 narrativeRole: The turn — the alternative, stated as simply as possible.
 keyMessage: Direct booking, on your own website.
@@ -94,8 +108,9 @@ keyMessage: Direct booking, on your own website.
 - onscreen: "Live availability. Your rates. Your extras."
 - duration: 9s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/05-booking.html
+- shots: Scene 1 (0–1.2s): calendar card (empty) rises 40px + fades, soft shadow → Scene 2 (1.5–3.5s): selected-calendar image crossfades over empty (stay picks itself); label 'Live availability.' → Scene 3 (3.5–5.5s): 'Your rates, your seasons.' → Scene 4 (5.5–7s): extras image crossfades in, 'Extras you define.' (600) → Scene 5: card slow drift up 12px across full duration.
 - type: proof
 - persuasion: Show-don't-tell proof
 - beat: ease + control
@@ -112,8 +127,9 @@ keyMessage: A complete booking system on your site.
 - onscreen: "$530 kept. On a single stay."
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/06-kept.html
+- shots: Scene 1 (0–1s): summary card fades in → Scene 2 (1–4s): slow push-in on card (scale 1→1.12, origin bottom-left toward green note) → Scene 3 (3.5–5s): label 'Booked direct' + '$530' counts 0→530 in green → Scene 4 (5–7s): hairline draws, 'kept, on a single stay.' fades.
 - type: proof
 - persuasion: Feature-to-benefit translation
 - beat: satisfaction
@@ -130,8 +146,9 @@ keyMessage: Every direct booking keeps the fee in your pocket.
 - onscreen: "Your house. Your rules. No platform. — WD STUDIO · wdstudio.agency"
 - duration: 7s
 - transition_in: crossfade
-- status: built
+- status: animated
 - src: compositions/frames/07-signature.html
+- shots: Scene 1 (0–1.5s): 'Your house. Your rules.' (200) fades up → Scene 2 (1.3–2.6s): 'No platform.' (600) → Scene 3 (2.8–3.8s): hairline draws from centre → Scene 4 (3.6–5s): WD STUDIO tracked wordmark + descriptor → Scene 5 (5–7s): gold URL; final settle (global opacity hold).
 - type: cta
 - persuasion: Identity / status
 - beat: quiet confidence

@@ -1,0 +1,42 @@
+<template>
+<div id="root" data-composition-id="07-signature" data-start="0" data-duration="7" data-width="1920" data-height="1080">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;src:url("assets/fonts/captured-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format('woff2');}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;color:#141412}
+.f07signature-bg{position:absolute;inset:0;background:#FBFAF8}
+.f07signature-wm{position:absolute;left:64px;top:52px;font-size:13px;letter-spacing:5px;color:#75736E;font-weight:500}
+.f07signature-lab{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#8A7040;font-weight:500}
+.f07signature-hair{height:1px;background:#B69455;transform-origin:left center}
+.f07signature-l{font-weight:200} .f07signature-b{font-weight:600}
+
+#f07-wrap{position:absolute;left:0;right:0;top:250px;text-align:center}
+.f07-big{font-size:96px;letter-spacing:-2px;line-height:1.1}
+#f07-hair{width:115px;margin:56px auto 48px;transform-origin:center}
+#f07-wm{font-size:40px;letter-spacing:16px;font-weight:500;padding-left:16px}
+#f07-desc{font-size:22px;color:#75736E;margin-top:18px;font-weight:300}
+#f07-url{margin-top:40px;font-size:18px}
+
+</style>
+<div id="f07signature-ground" class="clip f07signature-bg" data-start="0" data-duration="7" data-track-index="0"></div>
+<div id="f07signature-content" class="clip" data-start="0" data-duration="7" data-track-index="1" style="position:absolute;inset:0">
+<div id="f07-wrap"><div class="f07-big f07signature-l" id="f07-a">Your house. Your rules.</div><div class="f07-big f07signature-b" id="f07-b">No platform.</div>
+<div class="f07signature-hair" id="f07-hair"></div><div id="f07-wm">WD STUDIO</div><div id="f07-desc">Digital identity for the world's most beautiful properties.</div><div class="f07signature-lab" id="f07-url">wdstudio.agency</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function(){
+window.__timelines=window.__timelines||{};
+const tl=gsap.timeline({paused:true});
+
+tl.fromTo("#f07-a",{opacity:0,y:16},{opacity:1,y:0,duration:1.4,ease:"power3.out"},0.2);
+tl.fromTo("#f07-b",{opacity:0,y:16},{opacity:1,y:0,duration:1.3,ease:"power3.out"},1.4);
+tl.fromTo("#f07-hair",{scaleX:0},{scaleX:1,duration:1,ease:"power2.inOut"},2.8);
+tl.fromTo("#f07-wm",{opacity:0,scale:1.04},{opacity:1,scale:1,duration:1.6,ease:"power3.out"},3.5);
+tl.fromTo("#f07-desc",{opacity:0},{opacity:1,duration:1,ease:"power1.out"},4.3);
+tl.fromTo("#f07-url",{opacity:0},{opacity:1,duration:1,ease:"power1.out"},5.0);
+
+window.__timelines["07-signature"]=tl;
+})();
+</script>
+</div>
+</template>
