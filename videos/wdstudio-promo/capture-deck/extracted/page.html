@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+:root{
+  --ink:#141412; --soft:#4F4C47; --mute:#8E8B85;
+  --line:#E4E1DB; --paper:#FBFAF8; --card:#fff;
+  --acc:#2D5F56; --gold:#B69455;
+  --f:'Inter',-apple-system,'Helvetica Neue',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--paper);color:var(--ink);font-family:var(--f);font-weight:300;
+  -webkit-font-smoothing:antialiased;line-height:1.5}
+
+.deck{position:relative;width:100vw;height:100vh}
+.s{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:6vh 8vw;overflow-y:auto}
+.s.on{display:flex}
+.s.dark{background:var(--ink);color:#fff}
+.s.dark .k{color:var(--gold)}
+.s.dark .lead,.s.dark .bd{color:#B8B4AC}
+.s.dark .box{background:#1E1E1B;border-color:#2C2C28}
+.s.dark .box b{color:#fff}
+.s.dark .box span{color:#9C9891}
+
+.k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);font-weight:500;margin-bottom:22px}
+h1{font-weight:200;font-size:clamp(2.6rem,6.5vw,5.2rem);line-height:1.02;letter-spacing:-.035em}
+h1 b{font-weight:500}
+h2{font-weight:300;font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.12;letter-spacing:-.025em;margin-bottom:20px}
+h2 b{font-weight:500}
+.lead{font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.65;color:var(--soft);max-width:60ch}
+.bd{font-size:clamp(.9rem,1.15vw,1rem);line-height:1.7;color:var(--soft);max-width:62ch}
+.big{font-weight:200;font-size:clamp(3.4rem,10vw,8rem);letter-spacing:-.05em;line-height:.95}
+.big em{font-style:normal;font-size:.32em;color:var(--mute);letter-spacing:0}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,32px);margin-top:36px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.8vw,24px);margin-top:36px}
+
+.box{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:clamp(18px,2.2vw,28px)}
+.box .n{font-size:10px;letter-spacing:.2em;color:var(--gold);font-weight:600;margin-bottom:10px}
+.box b{display:block;font-size:clamp(.95rem,1.25vw,1.1rem);font-weight:500;margin-bottom:7px;letter-spacing:-.01em}
+.box span{font-size:clamp(.8rem,.95vw,.88rem);color:var(--mute);line-height:1.6;display:block}
+
+.rows{margin-top:30px;border-top:1px solid var(--line)}
+.rw{display:grid;grid-template-columns:34px 1fr;gap:18px;padding:clamp(13px,1.6vw,19px) 0;border-bottom:1px solid var(--line);align-items:start}
+.s.dark .rows,.s.dark .rw{border-color:#2C2C28}
+.rw .i{font-size:12px;color:var(--gold);font-weight:500;padding-top:3px}
+.rw b{display:block;font-size:clamp(.95rem,1.15vw,1.05rem);font-weight:500;margin-bottom:4px}
+.rw span{font-size:clamp(.82rem,.95vw,.9rem);color:var(--mute);line-height:1.6}
+.s.dark .rw span{color:#9C9891}
+
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,26px);margin-top:34px}
+.tier{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:clamp(20px,2.4vw,30px);position:relative}
+.tier.mid{border-color:var(--ink);border-width:1.5px}
+.tier .tag{position:absolute;top:-9px;left:clamp(20px,2.4vw,30px);background:var(--ink);color:#fff;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:2px;font-weight:500}
+.tier .nm{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);font-weight:500}
+.tier .pr{margin-top:12px;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:300;letter-spacing:-.03em}
+.tier .pr s{text-decoration:line-through;color:var(--mute);font-size:.5em;font-weight:300;margin-right:9px}
+.tier .cur{font-size:.42em;color:var(--mute);margin-left:5px}
+.tier ul{list-style:none;margin-top:18px}
+.tier li{font-size:clamp(.8rem,.95vw,.88rem);color:var(--soft);padding:6px 0;line-height:1.5}
+.tier li::before{content:"—";color:var(--mute);margin-right:8px}
+
+.quote{font-weight:200;font-size:clamp(1.5rem,3.2vw,2.6rem);line-height:1.25;letter-spacing:-.02em;max-width:22ch}
+
+.nav{position:fixed;bottom:22px;right:26px;display:flex;align-items:center;gap:14px;z-index:20}
+.nav button{width:34px;height:34px;border:1px solid var(--line);background:var(--card);color:var(--soft);
+  cursor:pointer;border-radius:2px;font-size:14px;font-family:var(--f);transition:all .18s}
+.nav button:hover{border-color:var(--ink);color:var(--ink)}
+.cnt{font-size:11px;color:var(--mute);letter-spacing:.1em;min-width:40px;text-align:right}
+.lng{position:fixed;top:22px;right:26px;z-index:20;display:flex;gap:2px;font-size:11px;letter-spacing:.14em}
+.lng button{background:none;border:none;color:var(--mute);cursor:pointer;font-family:var(--f);
+  font-size:11px;letter-spacing:.14em;padding:5px 8px;transition:color .2s}
+.lng button.on{color:var(--ink);font-weight:600}
+.lng span{color:var(--line);padding:5px 0}
+.brand{position:fixed;top:22px;left:26px;z-index:20;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mute);font-weight:500}
+.s.dark ~ .brand,.s.dark ~ .nav .cnt{color:#8E8B85}
+
+.bar{position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:30;transition:width .3s}
+
+.sig{margin-top:clamp(36px,6vh,72px);border-top:1px solid #2C2C28;padding-top:clamp(22px,3vh,34px)}
+.sigk{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.signm{margin-top:14px;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:500;letter-spacing:.14em}
+.sigln{margin-top:10px;font-size:clamp(.9rem,1.2vw,1.05rem);color:#B8B4AC;font-weight:300;max-width:46ch;line-height:1.55}
+.sigurl{margin-top:18px;font-size:12px;letter-spacing:.14em;color:#8E8B85}
+
+@media(max-width:820px){
+  .g2,.g3,.g4,.tiers{grid-template-columns:1fr;gap:18px}
+  .s{padding:9vh 7vw}
+  .g4{gap:12px}
+}
+</style>
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+</head>
+<body>
+
+
+<div class="bar" id="bar" style="width: 6.66667%;"></div>
+<div class="brand" style="color: rgb(142, 139, 133);">WD Studio</div>
+<div class="lng">
+  <button id="bEs" onclick="setLang('es')">ES</button><span>/</span><button id="bEn" onclick="setLang('en')" class="on">EN</button>
+</div>
+
+<div class="deck" id="deck"><section class="s dark on"><div class="k">Direct booking</div><h1>Your guest books<br><b>on your site.</b></h1><p class="lead" style="margin-top:30px">A complete booking system installed on your own website. No platform in between, no commission per reservation.</p></section><section class="s"><div class="g2"><div><div class="k">The problem</div><div class="big">16%<em><br>of every booking</em></div></div><div><p class="bd">Since September 2026, the host fee in Mexico is 16%. It used to be around 3%.<br><br>On a property billing 50,000 USD a year, that is <b>8,000 USD</b> leaving every year. And the guest no longer sees that fee separately: it sits inside the price you publish.</p></div></div></section><section class="s"><div class="k">The solution</div><h2>Three steps.<br><b>Without leaving your site.</b></h2><div class="g3"><div class="box"><div class="n">01</div><b>Pick dates</b><span>Live calendar with real availability. Booked dates appear blocked.</span></div><div class="box"><div class="n">02</div><b>Add extras</b><span>Transfers, chef, experiences, pets. Whatever you define, at the price you set.</span></div><div class="box"><div class="n">03</div><b>Pay</b><span>Card payment processed by Stripe. Automatic confirmation to the guest and to you.</span></div></div></section><section class="s dark"><div class="k">What it does</div><h2>What the<br><b>system handles</b></h2><div class="g4"><div class="box"><b>Seasonal rates</b><span>High, mid and low, with the rate you define for each one.</span></div><div class="box"><b>Minimum stays</b><span>Different per season. The system validates it before letting anyone continue.</span></div><div class="box"><b>Mixed stays</b><span>If a stay crosses two seasons, each night is charged at its correct rate.</span></div><div class="box"><b>Configurable extras</b><span>Per night, per stay or per session. With quantity and minimums.</span></div></div><div class="g4"><div class="box"><b>Pet fees</b><span>Per pet, per night, with a maximum limit.</span></div><div class="box"><b>Booking window</b><span>Minimum lead days and how far ahead someone can book.</span></div><div class="box"><b>Bilingual</b><span>Spanish and English, with automatic detection of the visitor language.</span></div><div class="box"><b>Anti-fraud</b><span>Invisible reCAPTCHA that never blocks a genuine guest.</span></div></div><div class="g4" style="grid-template-columns:1fr"><div class="box"><b>Abandoned bookings</b><span>If someone starts and does not finish, they receive an automatic email with their booking ready to complete.</span></div></div></section><section class="s"><div class="k">Your first question</div><h2>How do I control<br><b>dates and prices?</b></h2><p class="lead">From a spreadsheet. Without touching code, without depending on us, without waiting for anyone.</p><div class="rows"><div class="rw"><div class="i">01</div><div><b>Block dates</b><span>You write the date or range in the sheet. The calendar blocks it instantly.</span></div></div><div class="rw"><div class="i">02</div><div><b>Change rates</b><span>You edit the cell. The system picks up the new price on the next visit.</span></div></div><div class="rw"><div class="i">03</div><div><b>Define seasons</b><span>Each season with its dates, its rate and its minimum stay.</span></div></div><div class="rw"><div class="i">04</div><div><b>Edit extras</b><span>Add, remove or change the price of any additional service.</span></div></div></div><p class="bd" style="margin-top:24px;font-size:.9rem">Nothing is hard-coded. Everything you see on screen comes from your sheet. If you raise your rates tomorrow, you raise the cell and that is it.</p></section><section class="s"><div class="k">Your second question</div><h2>Where do I see<br><b>my bookings?</b></h2><div class="g4"><div class="box"><div class="n">01</div><b>Immediate email</b><span>Every booking arrives in your inbox with the guest details and the full breakdown.</span></div><div class="box"><div class="n">02</div><b>Logged in the sheet</b><span>Every booking is saved as a row: dates, guests, extras, amounts, contact and status.</span></div><div class="box"><div class="n">03</div><b>Guest confirmation</b><span>They receive their receipt automatically, with the summary and the conditions.</span></div><div class="box"><div class="n">04</div><b>Your Stripe</b><span>The money goes straight into your own Stripe account. We never touch your funds.</span></div></div></section><section class="s dark"><div class="k">Security</div><h2>What protects<br><b>your money</b></h2><div class="rows"><div class="rw"><div class="i">01</div><div><b>Server-verified pricing</b><span>The browser never decides what gets charged. The server recalculates the total and rejects the transaction if it does not match.</span></div></div><div class="rw"><div class="i">02</div><div><b>Dates checked twice</b><span>Availability is validated again before charging, so bookings cannot collide.</span></div></div><div class="rw"><div class="i">03</div><div><b>Stripe, not us</b><span>Card details never pass through your site or ours. Stripe processes them directly.</span></div></div><div class="rw"><div class="i">04</div><div><b>Test mode</b><span>Before going live, the whole flow is tested with test cards.</span></div></div></div></section><section class="s"><div class="k">Installation</div><h2>Where it<br><b>lives</b></h2><div class="g4"><div class="box"><b>On your current site</b><span>Embedded into any page of your website. Works with WordPress, Squarespace, Wix or a custom build.</span></div><div class="box"><b>Or as its own page</b><span>yourdomain.com/book, in your own brand.</span></div><div class="box"><b>Matched to your identity</b><span>Typography, colour and tone. The system dresses as your property, not as a template.</span></div><div class="box"><b>Mobile first</b><span>Most bookings arrive from a phone. It is designed for that.</span></div></div></section><section class="s dark"><div class="k">The question everyone asks</div><h2>“We do not have<br><b>direct bookings yet”</b></h2><p class="lead">Exactly. And it is not for lack of demand: it is that there is nowhere to receive it.</p><div class="rows"><div class="rw"><div class="i">01</div><div><b>People already write to you</b><span>Every week someone asks through Instagram, WhatsApp or your inbox. Those people already found you and already want you. Today you reply by hand, send prices and wait — and many end up booking on the platform because it is easier.</span></div></div><div class="rw"><div class="i">02</div><div><b>The channel does not start at zero</b><span>It starts with the people already searching your name. The ones who stayed before. The ones who follow you. All they were missing was somewhere to close.</span></div></div><div class="rw"><div class="i">03</div><div><b>And with those arriving via platform</b><span>A guest who already knows the house does not need the platform to come back. They need to know they can book you directly.</span></div></div></div><p class="bd" style="margin-top:24px;font-size:.9rem">The question is not whether you will have direct bookings. It is how many of the ones you already have are paying a commission you could stop paying.</p></section><section class="s"><div class="k">Investment</div><h2>Three tiers</h2><div class="tiers"><div class="tier"><div class="nm">Booking link</div><div class="pr"><s>$1,414</s>$1,188<span class="cur">USD</span></div><ul><li>Its own page, in your brand</li><li>Calendar, rates and extras</li><li>Card payment via Stripe</li><li>Admin spreadsheet</li><li>You send it by WhatsApp or Instagram</li></ul></div><div class="tier mid"><div class="tag">Most chosen</div><div class="nm">Built into your site</div><div class="pr"><s>$1,890</s>$1,588<span class="cur">USD</span></div><ul><li>Everything in the previous tier</li><li>Embedded in your website</li><li>Abandoned booking recovery</li><li>The link keeps working</li><li>Matched to your identity</li></ul></div><div class="tier"><div class="nm">Landing + booking</div><div class="pr"><s>$3,400</s>$2,856<span class="cur">USD</span></div><ul><li>Everything in the previous tier</li><li>Property landing page, designed</li><li>Abandoned booking recovery</li><li>Search optimised</li><li>For those with only Airbnb</li></ul></div></div><p class="bd" style="margin-top:26px;font-size:.88rem">Maintenance: <b>79 USD per month</b> across all three tiers. Covers hosting, backups, updates, support and sending the recovery emails.<br>16% discount for the first ten properties — the same the platform keeps.</p></section><section class="s dark"><div class="k">The return</div><h2>What you pay once,<br><b>you stop paying every year</b></h2><p class="lead">A property billing 50,000 USD a year hands over roughly 8,000 USD in commission. Every year, forever.</p><div class="g3"><div class="box"><div class="n">01</div><b>First year</b><span>If only one booking in three moves to your direct channel, that is around 2,600 USD that never leaves. After the system and the maintenance, you are already ahead.</span></div><div class="box"><div class="n">02</div><b>Second year</b><span>The same 2,600 USD, and this time only maintenance: 948 USD a year. More than 1,600 USD stays with you.</span></div><div class="box"><div class="n">03</div><b>Over five years</b><span>Close to 13,000 USD that stopped leaving. After everything — the system and five years of maintenance — you keep around 7,700.</span></div></div><p class="bd" style="margin-top:26px;font-size:.88rem">And that assumes only a third of your bookings move. Properties that communicate it well move more.</p></section><section class="s"><div class="k">Add-ons</div><h2>What can be<br><b>added later</b></h2><p class="lead">Not included. Added once the channel is working and it makes sense to grow it.</p><div class="g3"><div class="box"><b>Airbnb calendar sync</b><span>Your calendar and the platforms block each other automatically, via iCal. It syncs hourly — not instant, so it is worth knowing.</span></div><div class="box"><b>Split payment</b><span>50% on booking, 50% before arrival. Lowers friction on higher-ticket stays.</span></div><div class="box"><b>Discount codes</b><span>For low-season promotions or returning guests.</span></div></div><div class="g3"><div class="box"><b>Pre-arrival emails</b><span>Directions, timings, how to get there. Automatic, without you writing anything.</span></div><div class="box"><b>Review request</b><span>After the stay, an email asking for a Google review. That is what gets you found.</span></div><div class="box"><b>Multiple properties</b><span>One system, all your houses. The guest picks which one before booking.</span></div></div></section><section class="s"><div class="k">Timeline</div><h2>From signature<br><b>to first booking</b></h2><div class="rows"><div class="rw"><div class="i">01</div><div><b>Day 1</b><span>We define seasons, rates, minimums and extras with you.</span></div></div><div class="rw"><div class="i">02</div><div><b>Days 2 to 8</b><span>Build, your Stripe setup and your admin sheet.</span></div></div><div class="rw"><div class="i">03</div><div><b>Days 9 to 11</b><span>Full flow tested in test mode. You review it.</span></div></div><div class="rw"><div class="i">04</div><div><b>Day 12</b><span>Live. We hand over the sheet and a guide to run it.</span></div></div></div></section><section class="s"><div class="k">Before we finish</div><h2>If you need<br><b>anything else</b></h2><p class="lead">The booking system is one piece. If your property needs more than that — identity, website, photography, content — we do that too. We have been building the digital presence of properties like yours since 2019.</p><p class="lead" style="margin-top:20px;color:var(--ink)">Tell us and we will talk.</p></section><section class="s dark"><p class="quote">Your guest picks the dates.<br>Adds what they need.<br>And pays. On your site.<br><br><b>Your house. Your rules. No platform.</b></p><div class="sig"><div class="sigk">Design &amp; Development Studio &#160;·&#160; Est. 2019 &#160;·&#160; Worldwide</div><div class="signm">WD STUDIO</div><div class="sigln">Digital identity for the world’s most beautiful properties.</div><div class="sigurl">wdstudio.agency</div></div></section></div>
+
+<div class="nav">
+  <button onclick="go(-1)">‹</button>
+  <button onclick="go(1)">›</button>
+  <span class="cnt" id="cnt">1 / 15</span>
+</div>
+
+<script>
+var L='es';
+
+var T={
+es:{
+ s1k:'Reserva directa', s1a:'Tu huésped reserva', s1b:'en tu sitio.',
+ s1c:'Un sistema de reservas completo, instalado en tu propia web. Sin plataforma de por medio, sin comisión por reserva.',
+
+ s2k:'El problema', s2t:'16%',
+ s2u:'de cada reserva',
+ s2b:'Desde septiembre de 2026, la comisión de anfitrión en México es del 16%. Era cerca del 3%.<br><br>En una propiedad que factura 50,000 USD al año, son <b>8,000 USD</b> que salen cada año. Y el huésped ya no ve esa tarifa por separado: está dentro del precio que tú publicas.',
+
+ s3k:'La solución', s3t:'Tres pasos.<br><b>Sin salir de tu web.</b>',
+ s3_1:'Elige fechas', s3_1d:'Calendario en vivo con disponibilidad real. Las fechas ocupadas aparecen bloqueadas.',
+ s3_2:'Agrega extras', s3_2d:'Traslados, chef, experiencias, mascotas. Lo que tú definas, con el precio que tú pongas.',
+ s3_3:'Paga', s3_3d:'Pago con tarjeta procesado por Stripe. Confirmación automática al huésped y a ti.',
+
+ s4k:'Qué incluye', s4t:'Lo que hace<br><b>el sistema</b>',
+ f1:'Tarifas por temporada', f1d:'Alta, media y baja, con la tarifa que tú definas para cada una.',
+ f2:'Mínimo de noches', f2d:'Distinto por temporada. El sistema lo valida antes de dejar avanzar.',
+ f3:'Estancias mixtas', f3d:'Si la estancia cruza dos temporadas, cada noche se cobra a su tarifa correcta.',
+ f4:'Extras configurables', f4d:'Por noche, por estancia o por sesión. Con cantidad y mínimos.',
+ f5:'Cargo por mascota', f5d:'Por mascota y por noche, con límite máximo.',
+ f6:'Ventana de reserva', f6d:'Días mínimos de anticipación y máximo a futuro que se puede reservar.',
+ f7:'Bilingüe', f7d:'Español e inglés, con detección automática del idioma del visitante.',
+ f8:'Antifraude', f8d:'reCAPTCHA invisible que nunca bloquea a un huésped real.',
+ f9:'Reservas abandonadas', f9d:'Si alguien empieza y no termina, recibe un correo automático con su reserva lista para completar.',
+
+ s5k:'Tu pregunta principal', s5t:'¿Cómo controlo<br><b>las fechas y los precios?</b>',
+ s5b:'Desde una hoja de cálculo. Sin tocar código, sin depender de nosotros, sin esperar a nadie.',
+ c1:'Bloquear fechas', c1d:'Escribes la fecha o el rango en la hoja. En el calendario aparece bloqueado al instante.',
+ c2:'Cambiar tarifas', c2d:'Editas la celda. El sistema toma el precio nuevo en la siguiente visita.',
+ c3:'Definir temporadas', c3d:'Cada temporada con sus fechas, su tarifa y su mínimo de noches.',
+ c4:'Editar extras', c4d:'Agregas, quitas o cambias el precio de cualquier servicio adicional.',
+ s5n:'El sistema no lleva nada escrito en el código. Todo lo que ves en pantalla viene de tu hoja. Si mañana subes tus tarifas, subes la celda y listo.',
+
+ s6k:'Tu segunda pregunta', s6t:'¿Dónde veo<br><b>mis reservas?</b>',
+ g1:'Correo inmediato', g1d:'Cada reserva llega a tu correo con todos los datos del huésped y el desglose completo.',
+ g2:'Registro en la hoja', g2d:'Cada reserva se guarda como una fila: fechas, huéspedes, extras, montos, contacto y estado.',
+ g3:'Confirmación al huésped', g3d:'Recibe su comprobante automáticamente, con el resumen y las condiciones.',
+ g4:'Tu Stripe', g4d:'El dinero entra directo a tu cuenta de Stripe. Nosotros nunca tocamos tus fondos.',
+
+ s7k:'Seguridad', s7t:'Lo que protege<br><b>tu dinero</b>',
+ p1:'Precios verificados en servidor', p1d:'El navegador nunca decide cuánto se cobra. El servidor recalcula el total y rechaza la operación si no coincide.',
+ p2:'Fechas verificadas dos veces', p2d:'La disponibilidad se valida otra vez antes de cobrar, para que no se dupliquen reservas.',
+ p3:'Stripe, no nosotros', p3d:'Los datos de la tarjeta nunca pasan por tu sitio ni por el nuestro. Stripe los procesa directamente.',
+ p4:'Modo de prueba', p4d:'Antes de salir en vivo, se prueba el flujo completo con tarjetas de prueba.',
+
+ s8k:'Instalación', s8t:'Dónde<br><b>vive</b>',
+ i1:'En tu sitio actual', i1d:'Se embebe en cualquier página de tu web. Funciona con WordPress, Squarespace, Wix o un sitio a la medida.',
+ i2:'O como página propia', i2d:'tudominio.com/reservar, con el diseño de tu marca.',
+ i3:'Se adapta a tu identidad', i3d:'Tipografía, colores y tono. El sistema se viste como tu propiedad, no como una plantilla.',
+ i4:'Móvil primero', i4d:'La mayoría de las reservas llegan desde el teléfono. Está diseñado para eso.',
+
+ ob_k:'La pregunta que todos hacen', ob_t:'&laquo;Todavía no tenemos<br><b>reservas directas&raquo;</b>',
+ ob_b:'Exacto. Y no es porque no haya demanda: es porque no hay dónde recibirla.',
+ ob_1:'Ya te escriben', ob_1d:'Cada semana alguien pregunta por Instagram, WhatsApp o tu correo. Esa gente ya te encontró y ya te quiere. Hoy contestas a mano, mandas precios y esperas — y muchos terminan reservando en la plataforma porque es más fácil.',
+ ob_2:'El canal no empieza en cero', ob_2d:'Empieza con quien ya te busca por tu nombre. Con quien ya se quedó una vez. Con quien vio tu Instagram. Sólo les faltaba un lugar donde cerrar.',
+ ob_3:'Y con quien ya viene por plataforma', ob_3d:'Un huésped que ya conoce la casa no necesita a la plataforma para volver. Necesita saber que puede reservarte directo.',
+ ob_n:'La pregunta no es si tendrás reservas directas. Es cuántas de las que ya tienes están pasando por una comisión que podrías no pagar.',
+
+ cx_k:'Complementos', cx_t:'Lo que se puede<br><b>añadir después</b>',
+ cx_b:'No vienen incluidos. Se añaden cuando el canal ya está funcionando y tiene sentido crecerlo.',
+ x1:'Sincronía con Airbnb', x1d:'Tu calendario y el de las plataformas se bloquean entre sí de forma automática, vía iCal. Se sincroniza cada hora — no es instantáneo, así que conviene saberlo.',
+ x2:'Pago dividido', x2d:'50% al reservar y 50% antes de llegar. Baja la fricción en estancias de ticket alto.',
+ x3:'Códigos de descuento', x3d:'Para promociones de temporada baja o para huéspedes que repiten.',
+ x4:'Correos previos a la llegada', x4d:'Indicaciones, horarios, cómo llegar. Automáticos, sin que escribas nada.',
+ x5:'Petición de reseña', x5d:'Después de la estancia, un correo pidiendo reseña en Google. Es lo que hace que te encuentren.',
+ x6:'Varias propiedades', x6d:'Un solo sistema, todas tus casas. El huésped elige cuál antes de reservar.',
+ s9k:'Inversión', s9t:'Tres niveles',
+ t1n:'Enlace de reserva', t1a:'Página propia con tu marca', t1b:'Calendario, tarifas y extras', t1c:'Pago con tarjeta vía Stripe', t1d:'Hoja de administración', t1e:'Lo mandas por WhatsApp o Instagram',
+ t2n:'Integrado a tu sitio', t2a:'Todo lo del nivel anterior', t2b:'Embebido en tu web', t2c:'Recuperación de reservas abandonadas', t2d:'El enlace sigue funcionando', t2e:'Adaptado a tu identidad',
+ t3n:'Landing + reservas', t3a:'Todo lo del nivel anterior', t3b:'Landing de la propiedad, diseñada', t3c:'Recuperación de reservas abandonadas', t3d:'Optimizada para buscadores', t3e:'Para quien sólo tiene Airbnb',
+ popular:'El más elegido',
+ s9n:'Mantenimiento: <b>79 USD al mes</b> en los tres niveles. Cubre hosting, respaldos, actualizaciones, soporte y el envío de los correos de recuperación.<br>Descuento del 16% para las primeras diez propiedades — lo mismo que se queda la plataforma.',
+
+ s10k:'Tiempos', s10t:'De la firma<br><b>a la primera reserva</b>',
+ w1:'Día 1', w1d:'Definimos temporadas, tarifas, mínimos y extras contigo.',
+ w2:'Días 2 a 8', w2d:'Construcción, configuración de tu Stripe y de tu hoja de administración.',
+ w3:'Días 9 a 11', w3d:'Pruebas del flujo completo en modo de prueba. Lo revisas tú.',
+ w4:'Día 12', w4d:'En vivo. Te entregamos la hoja y una guía para administrarlo.',
+
+ s11t:'Tu huésped elige las fechas.<br>Agrega lo que necesita.<br>Y paga. En tu sitio.<br><br><b>Tu casa. Tus reglas. Sin plataforma.</b>',
+ s11n:'wdstudio.agency',
+ sav_k:'El retorno', sav_t:'Lo que pagas una vez,<br><b>lo dejas de pagar cada año</b>',
+ sav_b:'Una propiedad que factura 50,000 USD al año entrega alrededor de 8,000 USD en comisión. Cada año, para siempre.',
+ sav_1:'Primer año', sav_1d:'Si sólo una de cada tres reservas pasa a tu canal directo, son unos 2,600 USD que no salen. Descontando el sistema y el mantenimiento, ya quedaste arriba.',
+ sav_2:'Segundo año', sav_2d:'Los mismos 2,600 USD, y esta vez sólo pagas el mantenimiento: 948 USD al año. Quedan más de 1,600 USD contigo.',
+ sav_3:'A cinco años', sav_3d:'Cerca de 13,000 USD que dejaron de irse. Descontando todo — sistema y cinco años de mantenimiento — te quedas con unos 7,700.',
+ sav_n:'Y eso asumiendo que sólo un tercio de tus reservas se mueve. Las propiedades que lo comunican bien mueven más.',
+ s105k:'Antes de terminar', s105t:'Si necesitas<br><b>algo más</b>',
+ s105b:'El sistema de reservas es una pieza. Si tu propiedad necesita más que eso — identidad, sitio, fotografía, contenido — también lo hacemos. Llevamos desde 2019 construyendo la presencia digital de propiedades como la tuya.',
+ s105c:'Dínoslo y lo platicamos.'
+},
+en:{
+ s1k:'Direct booking', s1a:'Your guest books', s1b:'on your site.',
+ s1c:'A complete booking system installed on your own website. No platform in between, no commission per reservation.',
+
+ s2k:'The problem', s2t:'16%',
+ s2u:'of every booking',
+ s2b:'Since September 2026, the host fee in Mexico is 16%. It used to be around 3%.<br><br>On a property billing 50,000 USD a year, that is <b>8,000 USD</b> leaving every year. And the guest no longer sees that fee separately: it sits inside the price you publish.',
+
+ s3k:'The solution', s3t:'Three steps.<br><b>Without leaving your site.</b>',
+ s3_1:'Pick dates', s3_1d:'Live calendar with real availability. Booked dates appear blocked.',
+ s3_2:'Add extras', s3_2d:'Transfers, chef, experiences, pets. Whatever you define, at the price you set.',
+ s3_3:'Pay', s3_3d:'Card payment processed by Stripe. Automatic confirmation to the guest and to you.',
+
+ s4k:'What it does', s4t:'What the<br><b>system handles</b>',
+ f1:'Seasonal rates', f1d:'High, mid and low, with the rate you define for each one.',
+ f2:'Minimum stays', f2d:'Different per season. The system validates it before letting anyone continue.',
+ f3:'Mixed stays', f3d:'If a stay crosses two seasons, each night is charged at its correct rate.',
+ f4:'Configurable extras', f4d:'Per night, per stay or per session. With quantity and minimums.',
+ f5:'Pet fees', f5d:'Per pet, per night, with a maximum limit.',
+ f6:'Booking window', f6d:'Minimum lead days and how far ahead someone can book.',
+ f7:'Bilingual', f7d:'Spanish and English, with automatic detection of the visitor language.',
+ f8:'Anti-fraud', f8d:'Invisible reCAPTCHA that never blocks a genuine guest.',
+ f9:'Abandoned bookings', f9d:'If someone starts and does not finish, they receive an automatic email with their booking ready to complete.',
+
+ s5k:'Your first question', s5t:'How do I control<br><b>dates and prices?</b>',
+ s5b:'From a spreadsheet. Without touching code, without depending on us, without waiting for anyone.',
+ c1:'Block dates', c1d:'You write the date or range in the sheet. The calendar blocks it instantly.',
+ c2:'Change rates', c2d:'You edit the cell. The system picks up the new price on the next visit.',
+ c3:'Define seasons', c3d:'Each season with its dates, its rate and its minimum stay.',
+ c4:'Edit extras', c4d:'Add, remove or change the price of any additional service.',
+ s5n:'Nothing is hard-coded. Everything you see on screen comes from your sheet. If you raise your rates tomorrow, you raise the cell and that is it.',
+
+ s6k:'Your second question', s6t:'Where do I see<br><b>my bookings?</b>',
+ g1:'Immediate email', g1d:'Every booking arrives in your inbox with the guest details and the full breakdown.',
+ g2:'Logged in the sheet', g2d:'Every booking is saved as a row: dates, guests, extras, amounts, contact and status.',
+ g3:'Guest confirmation', g3d:'They receive their receipt automatically, with the summary and the conditions.',
+ g4:'Your Stripe', g4d:'The money goes straight into your own Stripe account. We never touch your funds.',
+
+ s7k:'Security', s7t:'What protects<br><b>your money</b>',
+ p1:'Server-verified pricing', p1d:'The browser never decides what gets charged. The server recalculates the total and rejects the transaction if it does not match.',
+ p2:'Dates checked twice', p2d:'Availability is validated again before charging, so bookings cannot collide.',
+ p3:'Stripe, not us', p3d:'Card details never pass through your site or ours. Stripe processes them directly.',
+ p4:'Test mode', p4d:'Before going live, the whole flow is tested with test cards.',
+
+ s8k:'Installation', s8t:'Where it<br><b>lives</b>',
+ i1:'On your current site', i1d:'Embedded into any page of your website. Works with WordPress, Squarespace, Wix or a custom build.',
+ i2:'Or as its own page', i2d:'yourdomain.com/book, in your own brand.',
+ i3:'Matched to your identity', i3d:'Typography, colour and tone. The system dresses as your property, not as a template.',
+ i4:'Mobile first', i4d:'Most bookings arrive from a phone. It is designed for that.',
+
+ ob_k:'The question everyone asks', ob_t:'&ldquo;We do not have<br><b>direct bookings yet&rdquo;</b>',
+ ob_b:'Exactly. And it is not for lack of demand: it is that there is nowhere to receive it.',
+ ob_1:'People already write to you', ob_1d:'Every week someone asks through Instagram, WhatsApp or your inbox. Those people already found you and already want you. Today you reply by hand, send prices and wait — and many end up booking on the platform because it is easier.',
+ ob_2:'The channel does not start at zero', ob_2d:'It starts with the people already searching your name. The ones who stayed before. The ones who follow you. All they were missing was somewhere to close.',
+ ob_3:'And with those arriving via platform', ob_3d:'A guest who already knows the house does not need the platform to come back. They need to know they can book you directly.',
+ ob_n:'The question is not whether you will have direct bookings. It is how many of the ones you already have are paying a commission you could stop paying.',
+
+ cx_k:'Add-ons', cx_t:'What can be<br><b>added later</b>',
+ cx_b:'Not included. Added once the channel is working and it makes sense to grow it.',
+ x1:'Airbnb calendar sync', x1d:'Your calendar and the platforms block each other automatically, via iCal. It syncs hourly — not instant, so it is worth knowing.',
+ x2:'Split payment', x2d:'50% on booking, 50% before arrival. Lowers friction on higher-ticket stays.',
+ x3:'Discount codes', x3d:'For low-season promotions or returning guests.',
+ x4:'Pre-arrival emails', x4d:'Directions, timings, how to get there. Automatic, without you writing anything.',
+ x5:'Review request', x5d:'After the stay, an email asking for a Google review. That is what gets you found.',
+ x6:'Multiple properties', x6d:'One system, all your houses. The guest picks which one before booking.',
+ s9k:'Investment', s9t:'Three tiers',
+ t1n:'Booking link', t1a:'Its own page, in your brand', t1b:'Calendar, rates and extras', t1c:'Card payment via Stripe', t1d:'Admin spreadsheet', t1e:'You send it by WhatsApp or Instagram',
+ t2n:'Built into your site', t2a:'Everything in the previous tier', t2b:'Embedded in your website', t2c:'Abandoned booking recovery', t2d:'The link keeps working', t2e:'Matched to your identity',
+ t3n:'Landing + booking', t3a:'Everything in the previous tier', t3b:'Property landing page, designed', t3c:'Abandoned booking recovery', t3d:'Search optimised', t3e:'For those with only Airbnb',
+ popular:'Most chosen',
+ s9n:'Maintenance: <b>79 USD per month</b> across all three tiers. Covers hosting, backups, updates, support and sending the recovery emails.<br>16% discount for the first ten properties — the same the platform keeps.',
+
+ s10k:'Timeline', s10t:'From signature<br><b>to first booking</b>',
+ w1:'Day 1', w1d:'We define seasons, rates, minimums and extras with you.',
+ w2:'Days 2 to 8', w2d:'Build, your Stripe setup and your admin sheet.',
+ w3:'Days 9 to 11', w3d:'Full flow tested in test mode. You review it.',
+ w4:'Day 12', w4d:'Live. We hand over the sheet and a guide to run it.',
+
+ s11t:'Your guest picks the dates.<br>Adds what they need.<br>And pays. On your site.<br><br><b>Your house. Your rules. No platform.</b>',
+ s11n:'wdstudio.agency',
+ sav_k:'The return', sav_t:'What you pay once,<br><b>you stop paying every year</b>',
+ sav_b:'A property billing 50,000 USD a year hands over roughly 8,000 USD in commission. Every year, forever.',
+ sav_1:'First year', sav_1d:'If only one booking in three moves to your direct channel, that is around 2,600 USD that never leaves. After the system and the maintenance, you are already ahead.',
+ sav_2:'Second year', sav_2d:'The same 2,600 USD, and this time only maintenance: 948 USD a year. More than 1,600 USD stays with you.',
+ sav_3:'Over five years', sav_3d:'Close to 13,000 USD that stopped leaving. After everything — the system and five years of maintenance — you keep around 7,700.',
+ sav_n:'And that assumes only a third of your bookings move. Properties that communicate it well move more.',
+ s105k:'Before we finish', s105t:'If you need<br><b>anything else</b>',
+ s105b:'The booking system is one piece. If your property needs more than that — identity, website, photography, content — we do that too. We have been building the digital presence of properties like yours since 2019.',
+ s105c:'Tell us and we will talk.'
+}};
+
+function t(k){return T[L][k]||''}
+
+function build(){
+var d=document.getElementById('deck');
+d.innerHTML=
+/* 1 */
+'<section class="s dark"><div class="k">'+t('s1k')+'</div>'
++'<h1>'+t('s1a')+'<br><b>'+t('s1b')+'</b></h1>'
++'<p class="lead" style="margin-top:30px">'+t('s1c')+'</p></section>'
+
+/* 2 */
++'<section class="s"><div class="g2"><div>'
++'<div class="k">'+t('s2k')+'</div>'
++'<div class="big">'+t('s2t')+'<em><br>'+t('s2u')+'</em></div></div>'
++'<div><p class="bd">'+t('s2b')+'</p></div></div></section>'
+
+/* 3 */
++'<section class="s"><div class="k">'+t('s3k')+'</div><h2>'+t('s3t')+'</h2>'
++'<div class="g3">'
++bx('01',t('s3_1'),t('s3_1d'))+bx('02',t('s3_2'),t('s3_2d'))+bx('03',t('s3_3'),t('s3_3d'))
++'</div></section>'
+
+/* 4 */
++'<section class="s dark"><div class="k">'+t('s4k')+'</div><h2>'+t('s4t')+'</h2>'
++'<div class="g4">'+bx('',t('f1'),t('f1d'))+bx('',t('f2'),t('f2d'))+bx('',t('f3'),t('f3d'))+bx('',t('f4'),t('f4d'))+'</div>'
++'<div class="g4">'+bx('',t('f5'),t('f5d'))+bx('',t('f6'),t('f6d'))+bx('',t('f7'),t('f7d'))+bx('',t('f8'),t('f8d'))+'</div>'
++'<div class="g4" style="grid-template-columns:1fr">'+bx('',t('f9'),t('f9d'))+'</div></section>'
+
+/* 5 */
++'<section class="s"><div class="k">'+t('s5k')+'</div><h2>'+t('s5t')+'</h2>'
++'<p class="lead">'+t('s5b')+'</p>'
++'<div class="rows">'+rw('01',t('c1'),t('c1d'))+rw('02',t('c2'),t('c2d'))+rw('03',t('c3'),t('c3d'))+rw('04',t('c4'),t('c4d'))+'</div>'
++'<p class="bd" style="margin-top:24px;font-size:.9rem">'+t('s5n')+'</p></section>'
+
+/* 6 */
++'<section class="s"><div class="k">'+t('s6k')+'</div><h2>'+t('s6t')+'</h2>'
++'<div class="g4">'+bx('01',t('g1'),t('g1d'))+bx('02',t('g2'),t('g2d'))+bx('03',t('g3'),t('g3d'))+bx('04',t('g4'),t('g4d'))+'</div></section>'
+
+/* 7 */
++'<section class="s dark"><div class="k">'+t('s7k')+'</div><h2>'+t('s7t')+'</h2>'
++'<div class="rows">'+rw('01',t('p1'),t('p1d'))+rw('02',t('p2'),t('p2d'))+rw('03',t('p3'),t('p3d'))+rw('04',t('p4'),t('p4d'))+'</div></section>'
+
+/* 8 */
++'<section class="s"><div class="k">'+t('s8k')+'</div><h2>'+t('s8t')+'</h2>'
++'<div class="g4">'+bx('',t('i1'),t('i1d'))+bx('',t('i2'),t('i2d'))+bx('',t('i3'),t('i3d'))+bx('',t('i4'),t('i4d'))+'</div></section>'
+
+/* 9 — objeción */
++'<section class="s dark"><div class="k">'+t('ob_k')+'</div><h2>'+t('ob_t')+'</h2>'
++'<p class="lead">'+t('ob_b')+'</p>'
++'<div class="rows">'+rw('01',t('ob_1'),t('ob_1d'))+rw('02',t('ob_2'),t('ob_2d'))+rw('03',t('ob_3'),t('ob_3d'))+'</div>'
++'<p class="bd" style="margin-top:24px;font-size:.9rem">'+t('ob_n')+'</p></section>'
+
+/* 10 */
++'<section class="s"><div class="k">'+t('s9k')+'</div><h2>'+t('s9t')+'</h2>'
++'<div class="tiers">'
++'<div class="tier"><div class="nm">'+t('t1n')+'</div><div class="pr"><s>$1,414</s>$1,188<span class="cur">USD</span></div>'
++'<ul><li>'+t('t1a')+'</li><li>'+t('t1b')+'</li><li>'+t('t1c')+'</li><li>'+t('t1d')+'</li><li>'+t('t1e')+'</li></ul></div>'
++'<div class="tier mid"><div class="tag">'+t('popular')+'</div><div class="nm">'+t('t2n')+'</div><div class="pr"><s>$1,890</s>$1,588<span class="cur">USD</span></div>'
++'<ul><li>'+t('t2a')+'</li><li>'+t('t2b')+'</li><li>'+t('t2c')+'</li><li>'+t('t2d')+'</li><li>'+t('t2e')+'</li></ul></div>'
++'<div class="tier"><div class="nm">'+t('t3n')+'</div><div class="pr"><s>$3,400</s>$2,856<span class="cur">USD</span></div>'
++'<ul><li>'+t('t3a')+'</li><li>'+t('t3b')+'</li><li>'+t('t3c')+'</li><li>'+t('t3d')+'</li><li>'+t('t3e')+'</li></ul></div>'
++'</div><p class="bd" style="margin-top:26px;font-size:.88rem">'+t('s9n')+'</p></section>'
+
+/* 10 — retorno */
++'<section class="s dark"><div class="k">'+t('sav_k')+'</div><h2>'+t('sav_t')+'</h2>'
++'<p class="lead">'+t('sav_b')+'</p>'
++'<div class="g3">'
++bx('01',t('sav_1'),t('sav_1d'))+bx('02',t('sav_2'),t('sav_2d'))+bx('03',t('sav_3'),t('sav_3d'))
++'</div>'
++'<p class="bd" style="margin-top:26px;font-size:.88rem">'+t('sav_n')+'</p></section>'
+
+/* 12 — complementos */
++'<section class="s"><div class="k">'+t('cx_k')+'</div><h2>'+t('cx_t')+'</h2>'
++'<p class="lead">'+t('cx_b')+'</p>'
++'<div class="g3">'+bx('',t('x1'),t('x1d'))+bx('',t('x2'),t('x2d'))+bx('',t('x3'),t('x3d'))+'</div>'
++'<div class="g3">'+bx('',t('x4'),t('x4d'))+bx('',t('x5'),t('x5d'))+bx('',t('x6'),t('x6d'))+'</div></section>'
+
+/* 13 */
++'<section class="s"><div class="k">'+t('s10k')+'</div><h2>'+t('s10t')+'</h2>'
++'<div class="rows">'+rw('01',t('w1'),t('w1d'))+rw('02',t('w2'),t('w2d'))+rw('03',t('w3'),t('w3d'))+rw('04',t('w4'),t('w4d'))+'</div></section>'
+
+/* 11 */
++'<section class="s"><div class="k">'+t('s105k')+'</div><h2>'+t('s105t')+'</h2>'
++'<p class="lead">'+t('s105b')+'</p>'
++'<p class="lead" style="margin-top:20px;color:var(--ink)">'+t('s105c')+'</p></section>'
+
+/* 12 */
++'<section class="s dark"><p class="quote">'+t('s11t')+'</p>'
++'<div class="sig">'
++'<div class="sigk">Design &amp; Development Studio &nbsp;·&nbsp; Est. 2019 &nbsp;·&nbsp; Worldwide</div>'
++'<div class="signm">WD STUDIO</div>'
++'<div class="sigln">Digital identity for the world&rsquo;s most beautiful properties.</div>'
++'<div class="sigurl">wdstudio.agency</div>'
++'</div></section>';
+}
+function bx(n,b,s){return '<div class="box">'+(n?'<div class="n">'+n+'</div>':'')+'<b>'+b+'</b><span>'+s+'</span></div>'}
+function rw(i,b,s){return '<div class="rw"><div class="i">'+i+'</div><div><b>'+b+'</b><span>'+s+'</span></div></div>'}
+
+var cur=0;
+function show(){
+  var ss=document.querySelectorAll('.s');
+  ss.forEach(function(x,i){x.classList.toggle('on',i===cur)});
+  document.getElementById('cnt').textContent=(cur+1)+' / '+ss.length;
+  document.getElementById('bar').style.width=((cur+1)/ss.length*100)+'%';
+  document.body.style.background=ss[cur].classList.contains('dark')?'#141412':'#FBFAF8';
+  var dk=ss[cur].classList.contains('dark');
+  document.querySelector('.brand').style.color=dk?'#8E8B85':'#8E8B85';
+}
+function go(n){var ss=document.querySelectorAll('.s');cur=Math.max(0,Math.min(ss.length-1,cur+n));show()}
+function setLang(l){
+  L=l;
+  document.getElementById('bEs').classList.toggle('on',l==='es');
+  document.getElementById('bEn').classList.toggle('on',l==='en');
+  document.documentElement.lang=l;
+  build();show();
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(1)}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1)}
+  if(e.key==='Home'){cur=0;show()}
+  if(e.key==='End'){cur=document.querySelectorAll('.s').length-1;show()}
+});
+var tsX=null;
+document.addEventListener('touchstart',function(e){tsX=e.changedTouches[0].clientX});
+document.addEventListener('touchend',function(e){
+  if(tsX===null)return;var dx=e.changedTouches[0].clientX-tsX;
+  if(Math.abs(dx)>60)go(dx<0?1:-1);tsX=null;
+});
+var nav=(navigator.language||'es').slice(0,2).toLowerCase();
+build();
+if(nav==='en')setLang('en');else show();
+</script>
+
+
+
+</body>
+</html>

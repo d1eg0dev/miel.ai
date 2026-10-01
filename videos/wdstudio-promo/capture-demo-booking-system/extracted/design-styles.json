@@ -1,0 +1,124 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Inter",
+      "fontSize": "30px",
+      "fontWeight": "300",
+      "lineHeight": "34.5px",
+      "letterSpacing": "-0.66px",
+      "color": "#1A1A18",
+      "sampleText": "Reserve Casa Aurora"
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Inter",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "lineHeight": "27.2px",
+      "letterSpacing": "-0.17px",
+      "color": "#1A1A18",
+      "sampleText": "December 2026"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Inter",
+      "fontSize": "14px",
+      "fontWeight": "300",
+      "lineHeight": "22.4px",
+      "letterSpacing": "normal",
+      "color": "#55524D",
+      "sampleText": "Four suites, up to ten guests. Pool, terrace and the sea a f"
+    },
+    {
+      "role": "label",
+      "fontFamily": "Inter",
+      "fontSize": "10px",
+      "fontWeight": "500",
+      "lineHeight": "16px",
+      "letterSpacing": "1.4px",
+      "color": "#93908A",
+      "sampleText": "Guests"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      5,
+      6,
+      9,
+      11,
+      13,
+      15,
+      16,
+      24
+    ],
+    "baseUnit": 8
+  },
+  "radius": [
+    "2px"
+  ],
+  "shadows": [],
+  "buttons": [
+    {
+      "label": "‹",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#55524D",
+      "padding": "0px",
+      "borderRadius": "2px",
+      "border": "1px solid rgb(229, 226, 220)",
+      "boxShadow": "none",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": "30px"
+    },
+    {
+      "label": "Continue",
+      "background": "#1A1A18",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "15px",
+      "borderRadius": "2px",
+      "border": "0px none rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "fontSize": "13px",
+      "fontWeight": "500",
+      "height": "46px"
+    }
+  ],
+  "cards": [],
+  "nav": null,
+  "chips": [
+    {
+      "label": "1",
+      "background": "#1A1A18",
+      "color": "#FFFFFF",
+      "padding": "0px",
+      "borderRadius": "50%",
+      "border": "1px solid rgb(26, 26, 24)",
+      "boxShadow": "none",
+      "fontSize": "10.5px",
+      "fontWeight": "500",
+      "height": "22px"
+    },
+    {
+      "label": "2",
+      "background": "transparent",
+      "color": "#93908A",
+      "padding": "0px",
+      "borderRadius": "50%",
+      "border": "1px solid rgb(229, 226, 220)",
+      "boxShadow": "none",
+      "fontSize": "10.5px",
+      "fontWeight": "500",
+      "height": "22px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": []
+}

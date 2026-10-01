@@ -1,0 +1,185 @@
+[div] WD Studio
+[div] Direct booking
+[h1] Your guest books
+[b] on your site.
+[p] A complete booking system installed on your own website. No platform in between, no commission per reservation.
+[div] The problem
+[div] 16%
+[em] of every booking
+[p] Since September 2026, the host fee in Mexico is 16%. It used to be around 3%.
+[p] On a property billing 50,000 USD a year, that is
+[b] 8,000 USD
+[p] leaving every year. And the guest no longer sees that fee separately: it sits inside the price you publish.
+[div] The solution
+[h2] Three steps.
+[b] Without leaving your site.
+[b] Pick dates
+[span] Live calendar with real availability. Booked dates appear blocked.
+[b] Add extras
+[span] Transfers, chef, experiences, pets. Whatever you define, at the price you set.
+[b] Pay
+[span] Card payment processed by Stripe. Automatic confirmation to the guest and to you.
+[div] What it does
+[h2] What the
+[b] system handles
+[b] Seasonal rates
+[span] High, mid and low, with the rate you define for each one.
+[b] Minimum stays
+[span] Different per season. The system validates it before letting anyone continue.
+[b] Mixed stays
+[span] If a stay crosses two seasons, each night is charged at its correct rate.
+[b] Configurable extras
+[span] Per night, per stay or per session. With quantity and minimums.
+[b] Pet fees
+[span] Per pet, per night, with a maximum limit.
+[b] Booking window
+[span] Minimum lead days and how far ahead someone can book.
+[b] Bilingual
+[span] Spanish and English, with automatic detection of the visitor language.
+[b] Anti-fraud
+[span] Invisible reCAPTCHA that never blocks a genuine guest.
+[b] Abandoned bookings
+[span] If someone starts and does not finish, they receive an automatic email with their booking ready to complete.
+[div] Your first question
+[h2] How do I control
+[b] dates and prices?
+[p] From a spreadsheet. Without touching code, without depending on us, without waiting for anyone.
+[b] Block dates
+[span] You write the date or range in the sheet. The calendar blocks it instantly.
+[b] Change rates
+[span] You edit the cell. The system picks up the new price on the next visit.
+[b] Define seasons
+[span] Each season with its dates, its rate and its minimum stay.
+[b] Edit extras
+[span] Add, remove or change the price of any additional service.
+[p] Nothing is hard-coded. Everything you see on screen comes from your sheet. If you raise your rates tomorrow, you raise the cell and that is it.
+[div] Your second question
+[h2] Where do I see
+[b] my bookings?
+[b] Immediate email
+[span] Every booking arrives in your inbox with the guest details and the full breakdown.
+[b] Logged in the sheet
+[span] Every booking is saved as a row: dates, guests, extras, amounts, contact and status.
+[b] Guest confirmation
+[span] They receive their receipt automatically, with the summary and the conditions.
+[b] Your Stripe
+[span] The money goes straight into your own Stripe account. We never touch your funds.
+[div] Security
+[h2] What protects
+[b] your money
+[b] Server-verified pricing
+[span] The browser never decides what gets charged. The server recalculates the total and rejects the transaction if it does not match.
+[b] Dates checked twice
+[span] Availability is validated again before charging, so bookings cannot collide.
+[b] Stripe, not us
+[span] Card details never pass through your site or ours. Stripe processes them directly.
+[b] Test mode
+[span] Before going live, the whole flow is tested with test cards.
+[div] Installation
+[h2] Where it
+[b] lives
+[b] On your current site
+[span] Embedded into any page of your website. Works with WordPress, Squarespace, Wix or a custom build.
+[b] Or as its own page
+[span] yourdomain.com/book, in your own brand.
+[b] Matched to your identity
+[span] Typography, colour and tone. The system dresses as your property, not as a template.
+[b] Mobile first
+[span] Most bookings arrive from a phone. It is designed for that.
+[div] The question everyone asks
+[h2] “We do not have
+[b] direct bookings yet”
+[p] Exactly. And it is not for lack of demand: it is that there is nowhere to receive it.
+[b] People already write to you
+[span] Every week someone asks through Instagram, WhatsApp or your inbox. Those people already found you and already want you. Today you reply by hand, send prices and wait — and many end up booking on the platform because it is easier.
+[b] The channel does not start at zero
+[span] It starts with the people already searching your name. The ones who stayed before. The ones who follow you. All they were missing was somewhere to close.
+[b] And with those arriving via platform
+[span] A guest who already knows the house does not need the platform to come back. They need to know they can book you directly.
+[p] The question is not whether you will have direct bookings. It is how many of the ones you already have are paying a commission you could stop paying.
+[div] Investment
+[h2] Three tiers
+[div] Booking link
+[s] $1,414
+[div] $1,188
+[span] USD
+[li] Its own page, in your brand
+[li] Calendar, rates and extras
+[li] Card payment via Stripe
+[li] Admin spreadsheet
+[li] You send it by WhatsApp or Instagram
+[div] Most chosen
+[div] Built into your site
+[s] $1,890
+[div] $1,588
+[span] USD
+[li] Everything in the previous tier
+[li] Embedded in your website
+[li] Abandoned booking recovery
+[li] The link keeps working
+[li] Matched to your identity
+[div] Landing + booking
+[s] $3,400
+[div] $2,856
+[span] USD
+[li] Everything in the previous tier
+[li] Property landing page, designed
+[li] Abandoned booking recovery
+[li] Search optimised
+[li] For those with only Airbnb
+[p] Maintenance:
+[b] 79 USD per month
+[p] across all three tiers. Covers hosting, backups, updates, support and sending the recovery emails.
+[p] 16% discount for the first ten properties — the same the platform keeps.
+[div] The return
+[h2] What you pay once,
+[b] you stop paying every year
+[p] A property billing 50,000 USD a year hands over roughly 8,000 USD in commission. Every year, forever.
+[b] First year
+[span] If only one booking in three moves to your direct channel, that is around 2,600 USD that never leaves. After the system and the maintenance, you are already ahead.
+[b] Second year
+[span] The same 2,600 USD, and this time only maintenance: 948 USD a year. More than 1,600 USD stays with you.
+[b] Over five years
+[span] Close to 13,000 USD that stopped leaving. After everything — the system and five years of maintenance — you keep around 7,700.
+[p] And that assumes only a third of your bookings move. Properties that communicate it well move more.
+[div] Add-ons
+[h2] What can be
+[b] added later
+[p] Not included. Added once the channel is working and it makes sense to grow it.
+[b] Airbnb calendar sync
+[span] Your calendar and the platforms block each other automatically, via iCal. It syncs hourly — not instant, so it is worth knowing.
+[b] Split payment
+[span] 50% on booking, 50% before arrival. Lowers friction on higher-ticket stays.
+[b] Discount codes
+[span] For low-season promotions or returning guests.
+[b] Pre-arrival emails
+[span] Directions, timings, how to get there. Automatic, without you writing anything.
+[b] Review request
+[span] After the stay, an email asking for a Google review. That is what gets you found.
+[b] Multiple properties
+[span] One system, all your houses. The guest picks which one before booking.
+[div] Timeline
+[h2] From signature
+[b] to first booking
+[b] Day 1
+[span] We define seasons, rates, minimums and extras with you.
+[b] Days 2 to 8
+[span] Build, your Stripe setup and your admin sheet.
+[b] Days 9 to 11
+[span] Full flow tested in test mode. You review it.
+[b] Day 12
+[span] Live. We hand over the sheet and a guide to run it.
+[div] Before we finish
+[h2] If you need
+[b] anything else
+[p] The booking system is one piece. If your property needs more than that — identity, website, photography, content — we do that too. We have been building the digital presence of properties like yours since 2019.
+[p] Tell us and we will talk.
+[p] Your guest picks the dates.
+[p] Adds what they need.
+[p] And pays. On your site.
+[b] Your house. Your rules. No platform.
+[div] Design & Development Studio  ·  Est. 2019  ·  Worldwide
+[div] WD STUDIO
+[div] Digital identity for the world’s most beautiful properties.
+[div] wdstudio.agency
+[span] 1 / 15

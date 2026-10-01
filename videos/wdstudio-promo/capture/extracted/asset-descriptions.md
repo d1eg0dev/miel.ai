@@ -28,3 +28,13 @@ The `logo-<hash>.svg` filename prefix is a structural hint (DOM said this SVG wa
 - images/tauro.jpg — Casa Tauro: oceanfront house aerial; direct WhatsApp booking.
 - images/logo-light.png — WD STUDIO wordmark, light (for dark backgrounds), 560x88.
 - images/logo-dark.png — WD STUDIO wordmark, dark (for light backgrounds), 560x88.
+
+## Booking system & deck (wdstudio.agency/preview — v2 direction)
+
+- booking/ui-calendar-empty.png — WD direct-booking UI "Reserve Casa Aurora": step 1 Dates, December calendar with nightly prices, light warm-white UI (1400x1240 @2x).
+- booking/ui-calendar-selected.png — same calendar with a stay selected (Dec 10 black check-in, range shaded).
+- booking/ui-summary.png — "Your stay" summary card: Total $3,315 USD and green note "Booked direct, this stay keeps $530 USD that a platform would have taken at 16%."
+- booking/ui-extras.png — step 2 Extras: Private chef $160/night, Airport transfer $120, Guided excursion, Daily housekeeping.
+- booking/s01.png — deck slide "Your guest books on your site." (dark, Inter 200/600, gold label).
+- booking/s02.png — deck slide "16% of every booking" — host fee in Mexico since Sept 2026; on 50,000 USD/yr that is 8,000 USD.
+- booking/s15.png — deck closing slide "Your house. Your rules. No platform." + WD STUDIO lockup.

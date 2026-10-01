@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+:root{
+  --ink:#1A1A18; --soft:#55524D; --mute:#93908A;
+  --line:#E5E2DC; --paper:#FCFBF9; --card:#FFFFFF;
+  --acc:#2D5F56; --warn:#A8564C;
+  --f:'Inter',-apple-system,'Helvetica Neue',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f);font-weight:300;
+  line-height:1.6;-webkit-font-smoothing:antialiased;font-size:15px}
+.wrap{max-width:680px;margin:0 auto;padding:74px 24px 64px}
+
+.bar{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--ink);color:#fff;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:9px 16px;text-align:center;font-weight:400}
+.bar b{color:#C9B89A;font-weight:500}
+
+h1{font-weight:300;font-size:30px;line-height:1.15;letter-spacing:-.022em}
+h1 b{font-weight:500}
+.sub{margin-top:9px;font-size:14px;color:var(--soft)}
+.note{margin-top:6px;font-size:12.5px;color:var(--mute)}
+
+.steps{display:flex;margin:30px 0 28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stp{flex:1;display:flex;align-items:center;gap:9px;padding:15px 6px 15px 0}
+.stp.dim{opacity:.35}
+.dot{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:flex;
+  align-items:center;justify-content:center;font-size:10.5px;font-weight:500;color:var(--mute);flex-shrink:0}
+.dot.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.dot.ok{background:var(--acc);border-color:var(--acc);color:#fff}
+.stp span{font-size:12px;color:var(--mute);letter-spacing:.01em}
+.stp.cur span{color:var(--ink);font-weight:500}
+
+h2{font-weight:400;font-size:19px;letter-spacing:-.015em;margin-bottom:4px}
+.h2s{font-size:13.5px;color:var(--soft);margin-bottom:18px}
+
+.calhd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.calhd h3{font-weight:400;font-size:17px;letter-spacing:-.01em}
+.nav button{width:30px;height:30px;border:1px solid var(--line);background:var(--card);cursor:pointer;
+  font-size:13px;color:var(--soft);border-radius:2px;margin-left:5px;transition:all .18s;font-family:var(--f)}
+.nav button:hover{border-color:var(--ink);color:var(--ink)}
+.cal{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:16px}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px}
+.dow div{text-align:center;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding:5px 0}
+.gr{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dy{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:13px;cursor:pointer;border-radius:2px;transition:background .14s;color:var(--ink)}
+.dy.pad{cursor:default}
+.dy.off{color:#CFCCC6;cursor:not-allowed}
+.dy.bk{color:#C49A94;cursor:not-allowed;text-decoration:line-through;background:#FBF4F3}
+.dy:not(.pad):not(.off):not(.bk):hover{background:#F1EFEA}
+.dy.sel{background:var(--ink);color:#fff}
+.dy.rng{background:#EDF1EF}
+.dy i{font-style:normal;font-size:8.5px;color:var(--mute);margin-top:1px}
+.dy.sel i{color:rgba(255,255,255,.65)}
+.lg{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:10.5px;color:var(--mute)}
+.lg s{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;vertical-align:middle;text-decoration:none}
+
+.tbl{margin-top:20px;border:1px solid var(--line);border-radius:2px;background:var(--card);overflow:hidden}
+.tbl .r{display:flex;justify-content:space-between;padding:11px 15px;font-size:12.5px;border-bottom:1px solid var(--line);color:var(--soft)}
+.tbl .r:last-child{border-bottom:none}
+.tbl .r b{font-weight:500;color:var(--ink)}
+.tbl .r em{font-style:normal;color:var(--mute)}
+
+.fl{margin-bottom:15px}
+.lb{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;font-weight:500}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:2px;background:var(--card);
+  padding:11px 13px;font-family:var(--f);font-size:14px;font-weight:300;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc)}
+input.bad{border-color:var(--warn)}
+textarea{resize:vertical;min-height:72px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+
+.ad{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);
+  border-radius:2px;padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:border-color .18s}
+.ad:hover{border-color:var(--mute)}
+.ad.on{border-color:var(--acc)}
+.ad .bx{width:17px;height:17px;border:1px solid var(--line);border-radius:2px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff}
+.ad.on .bx{background:var(--acc);border-color:var(--acc)}
+.ad .tx{flex:1}
+.ad .tx b{display:block;font-size:14px;font-weight:500}
+.ad .tx span{font-size:12px;color:var(--mute)}
+.ad .pr{font-size:13.5px;font-weight:500;white-space:nowrap}
+
+.sm{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:17px 19px;margin-top:20px}
+.smh{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute);margin-bottom:12px;font-weight:500}
+.sm .r{display:flex;justify-content:space-between;padding:8px 0;font-size:13px;color:var(--soft);border-bottom:1px solid var(--line)}
+.sm .r b{color:var(--ink);font-weight:400}
+.sm .r small{display:block;font-size:11px;color:var(--mute);margin-top:1px}
+.sm .tt{border-bottom:none;padding-top:14px;margin-top:4px;border-top:1px solid var(--ink);font-size:16px;color:var(--ink)}
+.sm .tt b{font-weight:600}
+.kept{margin-top:12px;background:#F4F8F6;border-left:2px solid var(--acc);padding:11px 14px;font-size:12px;color:var(--soft);line-height:1.6}
+.kept b{color:var(--acc);font-weight:600}
+
+.agr{display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:12.5px;color:var(--soft);cursor:pointer;
+  padding:13px 15px;border:1px solid var(--line);border-radius:2px;background:var(--card);transition:border-color .18s}
+.agr.need{border-color:var(--warn);background:#FDF8F7}
+.agr input{width:auto;margin-top:1px;flex-shrink:0}
+.agr a{color:var(--acc);text-decoration:underline}
+
+.miss{margin-top:14px;padding:12px 15px;border:1px solid var(--line);border-left:2px solid var(--warn);
+  background:#FDF8F7;border-radius:2px;font-size:12.5px;color:var(--soft)}
+.miss b{display:block;color:var(--warn);font-weight:500;margin-bottom:4px}
+.miss ul{list-style:none;margin:0}
+.miss li{padding:2px 0}
+.miss li::before{content:"—";margin-right:7px;color:var(--mute)}
+
+.bn{display:flex;gap:9px;margin-top:24px}
+.bp{flex:1;background:var(--ink);color:#fff;border:none;border-radius:2px;padding:15px;cursor:pointer;
+  font-family:var(--f);font-size:13px;font-weight:500;letter-spacing:.02em;transition:opacity .18s}
+.bp:hover{opacity:.87}
+.bp[disabled]{opacity:.3;cursor:not-allowed}
+.bs{background:var(--card);color:var(--soft);border:1px solid var(--line);border-radius:2px;
+  padding:15px 24px;cursor:pointer;font-family:var(--f);font-size:13px;font-weight:500}
+.bs:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ---- STRIPE ---- */
+.stripe{position:fixed;inset:0;z-index:100;background:#fff;overflow-y:auto;display:none}
+.stripe.show{display:block}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.sleft{background:#F6F9FC;padding:56px 44px;border-right:1px solid #E6EBF1}
+.sright{padding:56px 44px;background:#fff}
+.sback{font-size:13px;color:#6B7C93;cursor:pointer;display:inline-block;margin-bottom:26px}
+.sback:hover{color:#32325D}
+.smerch{font-size:13px;color:#6B7C93;margin-bottom:6px}
+.samt{font-size:33px;font-weight:600;color:#32325D;letter-spacing:-.02em}
+.sitems{margin-top:30px;border-top:1px solid #E6EBF1;padding-top:18px}
+.sitem{display:flex;justify-content:space-between;padding:8px 0;font-size:13.5px;color:#525F7F}
+.sitem b{font-weight:500;color:#32325D}
+.sitem.tot{border-top:1px solid #E6EBF1;margin-top:10px;padding-top:14px;font-size:15px;font-weight:600;color:#32325D}
+.sright h3{font-size:15px;font-weight:500;color:#32325D;margin-bottom:20px}
+.sfl{margin-bottom:15px}
+.sfl label{display:block;font-size:13px;color:#6B7C93;margin-bottom:6px;font-weight:400}
+.sin{width:100%;border:1px solid #E6EBF1;border-radius:6px;padding:11px 13px;font-family:var(--f);
+  font-size:14px;color:#32325D;background:#fff;box-shadow:0 1px 3px rgba(50,50,93,.05)}
+.sin:focus{outline:none;border-color:#635BFF;box-shadow:0 0 0 3px rgba(99,91,255,.12)}
+.srow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.spay{width:100%;background:#635BFF;color:#fff;border:none;border-radius:6px;padding:13px;
+  font-family:var(--f);font-size:15px;font-weight:500;cursor:pointer;margin-top:8px;transition:background .18s}
+.spay:hover{background:#5851E8}
+.spay[disabled]{opacity:.45;cursor:not-allowed}
+.spow{margin-top:22px;text-align:center;font-size:11.5px;color:#8898AA}
+.spow b{color:#635BFF;font-weight:600}
+.sdemo{margin-top:14px;padding:11px 14px;background:#FFF8E5;border:1px solid #F5D98B;border-radius:6px;
+  font-size:12px;color:#8A6D1F;line-height:1.55}
+
+/* ---- MODAL ---- */
+.mod{position:fixed;inset:0;z-index:110;background:rgba(26,26,24,.55);display:none;
+  align-items:center;justify-content:center;padding:24px}
+.mod.show{display:flex}
+.modbox{background:#fff;max-width:560px;width:100%;max-height:78vh;overflow-y:auto;border-radius:3px;padding:32px 34px}
+.modbox h4{font-weight:500;font-size:17px;margin-bottom:16px}
+.modbox p{font-size:13px;color:var(--soft);margin-bottom:11px;line-height:1.7}
+.modbox .cl{margin-top:20px;width:100%;background:var(--ink);color:#fff;border:none;border-radius:2px;
+  padding:13px;cursor:pointer;font-family:var(--f);font-size:13px;font-weight:500}
+
+.ok{text-align:center}
+.ok .ic{width:52px;height:52px;border-radius:50%;background:var(--acc);color:#fff;font-size:24px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.ok h2{font-size:25px;font-weight:300;margin-bottom:9px}
+.ok p{font-size:14px;color:var(--soft);max-width:38ch;margin:0 auto}
+.ok .rf{margin-top:22px;display:inline-block;background:var(--card);border:1px solid var(--line);
+  border-radius:2px;padding:11px 20px;font-size:12.5px;letter-spacing:.05em}
+
+.ft{margin-top:36px;text-align:center;font-size:11px;color:var(--mute);line-height:1.8}
+.ft a{color:var(--acc)}
+
+@media(max-width:700px){
+  .sgrid{grid-template-columns:1fr}
+  .sleft{padding:36px 24px;border-right:none;border-bottom:1px solid #E6EBF1}
+  .sright{padding:32px 24px}
+}
+@media(max-width:600px){
+  .wrap{padding:66px 17px 46px}
+  h1{font-size:25px}
+  .r2{grid-template-columns:1fr}
+  .stp span{display:none}
+  .steps{gap:14px;justify-content:center}
+  .stp{flex:0 0 auto;padding-right:0;gap:0}
+}
+</style>
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+</head>
+<body>
+
+
+<div class="bar">Interactive demo &#160;·&#160; <b>No real charges</b> &#160;·&#160; WD Studio</div>
+<div class="wrap" id="app"><h1>Reserve <b>Casa Aurora</b></h1><p class="sub">Four suites, up to ten guests. Pool, terrace and the sea a few steps away.</p><p class="note">This is a working demo · Built by WD Studio · wdstudio.agency</p><div class="steps"><div class="stp cur"><div class="dot on">1</div><span>Dates</span></div><div class="stp dim"><div class="dot">2</div><span>Extras</span></div><div class="stp dim"><div class="dot">3</div><span>Details</span></div></div><div class="calhd"><h3>December 2026</h3><div class="nav"><button onclick="shift(-1)">‹</button><button onclick="shift(1)">›</button></div></div><div class="cal"><div class="dow"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div><div class="gr"><div class="dy pad"></div><div class="dy pad"></div><div class="dy" onclick="pick('2026-12-01')">1<i>495</i></div><div class="dy" onclick="pick('2026-12-02')">2<i>495</i></div><div class="dy" onclick="pick('2026-12-03')">3<i>495</i></div><div class="dy" onclick="pick('2026-12-04')">4<i>495</i></div><div class="dy" onclick="pick('2026-12-05')">5<i>495</i></div><div class="dy" onclick="pick('2026-12-06')">6<i>495</i></div><div class="dy" onclick="pick('2026-12-07')">7<i>495</i></div><div class="dy" onclick="pick('2026-12-08')">8<i>495</i></div><div class="dy" onclick="pick('2026-12-09')">9<i>495</i></div><div class="dy" onclick="pick('2026-12-10')">10<i>495</i></div><div class="dy" onclick="pick('2026-12-11')">11<i>495</i></div><div class="dy" onclick="pick('2026-12-12')">12<i>495</i></div><div class="dy" onclick="pick('2026-12-13')">13<i>495</i></div><div class="dy" onclick="pick('2026-12-14')">14<i>495</i></div><div class="dy" onclick="pick('2026-12-15')">15<i>690</i></div><div class="dy" onclick="pick('2026-12-16')">16<i>690</i></div><div class="dy" onclick="pick('2026-12-17')">17<i>690</i></div><div class="dy" onclick="pick('2026-12-18')">18<i>690</i></div><div class="dy" onclick="pick('2026-12-19')">19<i>690</i></div><div class="dy bk" onclick="pick('2026-12-20')">20</div><div class="dy bk" onclick="pick('2026-12-21')">21</div><div class="dy bk" onclick="pick('2026-12-22')">22</div><div class="dy bk" onclick="pick('2026-12-23')">23</div><div class="dy bk" onclick="pick('2026-12-24')">24</div><div class="dy bk" onclick="pick('2026-12-25')">25</div><div class="dy bk" onclick="pick('2026-12-26')">26</div><div class="dy" onclick="pick('2026-12-27')">27<i>690</i></div><div class="dy" onclick="pick('2026-12-28')">28<i>690</i></div><div class="dy" onclick="pick('2026-12-29')">29<i>690</i></div><div class="dy" onclick="pick('2026-12-30')">30<i>690</i></div><div class="dy" onclick="pick('2026-12-31')">31<i>690</i></div></div><div class="lg"><span><s style="background:#1A1A18"></s>Selected</span><span><s style="background:#EDF1EF"></s>Your stay</span><span><s style="background:#FBF4F3"></s>Unavailable</span></div></div><div class="tbl"><div class="r"><span><b>High season</b> <em>· min 4 nights</em></span><b>$690 / night</b></div><div class="r"><span><b>Mid season</b> <em>· min 3 nights</em></span><b>$495 / night</b></div><div class="r"><span><b>Green season</b> <em>· min 2 nights</em></span><b>$390 / night</b></div></div><div class="r2" style="margin-top:20px"><div class="fl"><label class="lb">Guests</label><select onchange="S.g=+this.value"><option value="2">2 guests</option><option value="4">4 guests</option><option value="6">6 guests</option><option value="8" selected>8 guests</option><option value="10">10 guests</option></select></div><div class="fl"><label class="lb">Pets</label><select onchange="S.pets=+this.value;R()"><option value="0" selected>None</option><option value="1">1 pet</option><option value="2">2 pets</option></select></div></div><div class="bn"><button class="bp" onclick="S.step=1;R();scrollTo(0,0)" disabled>Continue</button></div><p class="ft">Direct booking by <a href="https://wdstudio.agency" target="_blank" rel="noopener">WD Studio</a><br>No platform. No commission.</p></div>
+
+<div class="stripe" id="stripe"></div>
+
+<div class="mod" id="mod">
+  <div class="modbox">
+    <h4>Rental agreement &amp; cancellation policy</h4>
+    <p><b>Reservation.</b> A reservation is confirmed once payment is received. The guest count stated at booking may not be exceeded without written approval.</p>
+    <p><b>Cancellation.</b> More than 60 days before arrival, the deposit is refunded in full. Between 30 and 60 days, 50% is refunded. Under 30 days, the reservation is non-refundable.</p>
+    <p><b>Check-in and check-out.</b> Check-in from 15:00. Check-out by 11:00. Early arrival or late departure subject to availability.</p>
+    <p><b>Damages.</b> The guest is responsible for any damage to the property or its contents during the stay.</p>
+    <p><b>House rules.</b> No events or parties without prior written approval. Quiet hours from 22:00. Smoking is not permitted indoors.</p>
+    <p style="color:#93908A;font-size:12px;margin-top:18px">This is demonstration text. In production this links to the property's own signed agreement.</p>
+    <button class="cl" onclick="closeMod()">Close</button>
+  </div>
+</div>
+
+<script>
+var CFG={
+  name:'Casa Aurora',
+  seasons:[
+    {n:'High season',  f:'2026-12-15', t:'2027-04-15', r:690, m:4},
+    {n:'Mid season',   f:'2026-10-01', t:'2026-12-14', r:495, m:3},
+    {n:'Green season', f:'2027-04-16', t:'2027-09-30', r:390, m:2}
+  ],
+  dr:495, dm:3, clean:150, pet:30,
+  adds:[
+    {id:'chef', n:'Private chef',       d:'Breakfast and dinner, daily',   p:160, u:'night'},
+    {id:'tr',   n:'Airport transfer',   d:'Private round trip from the airport', p:120, u:'stay'},
+    {id:'surf', n:'Guided excursion',   d:'Private guide, half day',       p:70,  u:'session'},
+    {id:'hk',   n:'Daily housekeeping', d:'Full clean every morning',      p:45,  u:'night'}
+  ],
+  booked:['2026-12-20','2026-12-21','2026-12-22','2026-12-23','2026-12-24','2026-12-25','2026-12-26',
+          '2027-01-01','2027-01-02','2027-01-03','2027-03-28','2027-03-29','2027-03-30','2027-03-31']
+};
+var S={step:0,m:11,y:2026,ci:null,co:null,g:8,pets:0,ad:{},
+       nm:'',em:'',ph:'',nt:'',ag:false,done:false,touched:false};
+var MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var DW=['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+function iso(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+function $$(n){return '$'+Math.round(n).toLocaleString('en-US')}
+function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function sea(d){for(var i=0;i<CFG.seasons.length;i++){var s=CFG.seasons[i];if(d>=s.f&&d<=s.t)return s}return {n:'Standard',r:CFG.dr,m:CFG.dm}}
+function nts(){return (!S.ci||!S.co)?0:Math.round((new Date(S.co)-new Date(S.ci))/864e5)}
+function segs(){var o=[],d=new Date(S.ci),e=new Date(S.co);
+  while(d<e){var k=d.toISOString().slice(0,10),s=sea(k),l=o[o.length-1];
+    if(l&&l.n===s.n)l.c++;else o.push({n:s.n,r:s.r,c:1});d.setDate(d.getDate()+1)}return o}
+function lodge(){return segs().reduce(function(a,s){return a+s.r*s.c},0)}
+function addT(){var t=0,n=nts();CFG.adds.forEach(function(a){if(S.ad[a.id])t+=(a.u==='night'?a.p*n:a.p)});return t}
+function petT(){return S.pets*CFG.pet*nts()}
+function tot(){return lodge()+CFG.clean+addT()+petT()}
+function minOk(){return (!S.ci||!S.co)?true:nts()>=sea(S.ci).m}
+function emOk(){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.em.trim())}
+function missing(){
+  var m=[];
+  if(!S.nm.trim())m.push('Full name');
+  if(!S.em.trim())m.push('Email address');
+  else if(!emOk())m.push('A valid email address');
+  if(!S.ph.trim())m.push('Phone or WhatsApp');
+  if(!S.ag)m.push('Accept the rental agreement');
+  return m;
+}
+function ready(){return missing().length===0}
+function fdt(k){return new Date(k+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
+
+function pick(k){
+  if(CFG.booked.indexOf(k)>-1)return;
+  if(!S.ci||(S.ci&&S.co)){S.ci=k;S.co=null}
+  else if(k<=S.ci){S.ci=k;S.co=null}
+  else{var d=new Date(S.ci),e=new Date(k);
+    while(d<e){if(CFG.booked.indexOf(d.toISOString().slice(0,10))>-1){S.ci=k;S.co=null;R();return}d.setDate(d.getDate()+1)}
+    S.co=k}
+  R();
+}
+function shift(n){S.m+=n;if(S.m>11){S.m=0;S.y++}if(S.m<0){S.m=11;S.y--}R()}
+function set(k,v){S[k]=v;S.touched=true;sync()}
+function sync(){
+  var b=document.getElementById('payBtn');
+  var mv=document.getElementById('missBox');
+  var ab=document.getElementById('agrBox');
+  if(b){b.disabled=!ready()}
+  if(ab){ab.classList.toggle('need',S.touched&&!S.ag)}
+  if(mv){
+    var m=missing();
+    mv.style.display=(S.touched&&m.length)?'block':'none';
+    if(m.length)mv.innerHTML='<b>To continue, please complete:</b><ul>'+m.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
+  }
+}
+function openMod(e){if(e)e.preventDefault();document.getElementById('mod').classList.add('show')}
+function closeMod(){document.getElementById('mod').classList.remove('show')}
+
+/* ---------- STRIPE ---------- */
+function goStripe(){
+  var n=nts(),items='';
+  segs().forEach(function(s){items+='<div class="sitem"><span>'+s.n+' · '+s.c+' night'+(s.c>1?'s':'')+'</span><b>'+$$(s.r*s.c)+'</b></div>'});
+  items+='<div class="sitem"><span>Cleaning fee</span><b>'+$$(CFG.clean)+'</b></div>';
+  if(S.pets>0)items+='<div class="sitem"><span>Pet fee</span><b>'+$$(petT())+'</b></div>';
+  CFG.adds.forEach(function(a){if(S.ad[a.id]){var amt=a.u==='night'?a.p*n:a.p;
+    items+='<div class="sitem"><span>'+a.n+'</span><b>'+$$(amt)+'</b></div>'}});
+
+  document.getElementById('stripe').innerHTML=
+   '<div class="sgrid"><div class="sleft">'
+   +'<div class="sback" onclick="closeStripe()">← Back to Casa Aurora</div>'
+   +'<div class="smerch">Casa Aurora</div>'
+   +'<div class="samt">'+$$(tot())+'.00</div>'
+   +'<div class="sitems">'+items
+   +'<div class="sitem tot"><span>Total due</span><span>'+$$(tot())+'.00 USD</span></div></div>'
+   +'<div class="spow" style="text-align:left;margin-top:30px">'+esc(S.nm)+' · '+esc(S.em)+'<br>'
+   +fdt(S.ci)+' → '+fdt(S.co)+'</div></div>'
+   +'<div class="sright"><h3>Pay with card</h3>'
+   +'<div class="sfl"><label>Email</label><input class="sin" value="'+esc(S.em)+'" readonly></div>'
+   +'<div class="sfl"><label>Card information</label><input class="sin" id="cardNo" placeholder="4242 4242 4242 4242" inputmode="numeric" oninput="cardSync()"></div>'
+   +'<div class="srow"><div class="sfl"><input class="sin" id="cardExp" placeholder="MM / YY" inputmode="numeric" oninput="cardSync()"></div>'
+   +'<div class="sfl"><input class="sin" id="cardCvc" placeholder="CVC" inputmode="numeric" oninput="cardSync()"></div></div>'
+   +'<div class="sfl"><label>Name on card</label><input class="sin" id="cardNm" value="'+esc(S.nm)+'" oninput="cardSync()"></div>'
+   +'<div class="sfl"><label>Country</label><select class="sin"><option>Mexico</option><option>United States</option><option>Canada</option></select></div>'
+   +'<button class="spay" id="spayBtn" onclick="payNow()" disabled>Pay '+$$(tot())+'.00</button>'
+   +'<div class="spow">Powered by <b>stripe</b> · Terms · Privacy</div>'
+   +'<div class="sdemo"><b>Demo mode.</b> Use any numbers you like — nothing is sent or charged. In production this is a real Stripe Checkout session.</div>'
+   +'</div></div>';
+  document.getElementById('stripe').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function cardSync(){
+  var no=document.getElementById('cardNo').value.replace(/\s/g,'');
+  var ex=document.getElementById('cardExp').value;
+  var cv=document.getElementById('cardCvc').value;
+  var nm=document.getElementById('cardNm').value;
+  document.getElementById('spayBtn').disabled=!(no.length>=12&&ex.length>=4&&cv.length>=3&&nm.trim());
+}
+function closeStripe(){document.getElementById('stripe').classList.remove('show');document.body.style.overflow=''}
+function payNow(){
+  var b=document.getElementById('spayBtn');
+  b.textContent='Processing…';b.disabled=true;
+  setTimeout(function(){closeStripe();S.done=true;R();scrollTo(0,0)},1500);
+}
+
+/* ---------- RENDER ---------- */
+function R(){
+  var a=document.getElementById('app');
+  if(S.done){
+    a.innerHTML='<div class="ok"><div class="ic">✓</div><h2>Reservation confirmed</h2>'
+     +'<p>A confirmation has been sent to '+esc(S.em)+'. The property will be in touch within 24 hours.</p>'
+     +'<div class="rf">AUR-2026-'+Math.floor(1000+Math.random()*8999)+'</div>'
+     +'<p style="margin-top:30px;font-size:12.5px">Demo only — no payment was processed.<br>'
+     +'<a href="#" onclick="location.reload();return false" style="color:#2D5F56">Start again</a></p></div>';
+    return;
+  }
+  var T=['Dates','Extras','Details'],st='';
+  T.forEach(function(t,i){st+='<div class="stp'+(S.step<i?' dim':'')+(S.step===i?' cur':'')+'">'
+    +'<div class="dot'+(S.step===i?' on':S.step>i?' ok':'')+'">'+(S.step>i?'✓':i+1)+'</div><span>'+t+'</span></div>'});
+
+  var h='<h1>Reserve <b>Casa Aurora</b></h1>'
+   +'<p class="sub">Four suites, up to ten guests. Pool, terrace and the sea a few steps away.</p>'
+   +'<p class="note">This is a working demo · Built by WD Studio · wdstudio.agency</p>'
+   +'<div class="steps">'+st+'</div>';
+
+  if(S.step===0){
+    var first=new Date(S.y,S.m,1).getDay(),days=new Date(S.y,S.m+1,0).getDate();
+    h+='<div class="calhd"><h3>'+MO[S.m]+' '+S.y+'</h3><div class="nav">'
+     +'<button onclick="shift(-1)">‹</button><button onclick="shift(1)">›</button></div></div>'
+     +'<div class="cal"><div class="dow">'+DW.map(function(d){return '<div>'+d+'</div>'}).join('')+'</div><div class="gr">';
+    for(var i=0;i<first;i++)h+='<div class="dy pad"></div>';
+    for(var d=1;d<=days;d++){
+      var k=iso(S.y,S.m,d),c='dy',s=sea(k),bk=CFG.booked.indexOf(k)>-1;
+      if(bk)c+=' bk';else if(k===S.ci||k===S.co)c+=' sel';else if(S.ci&&S.co&&k>S.ci&&k<S.co)c+=' rng';
+      h+='<div class="'+c+'" onclick="pick(\''+k+'\')">'+d+(bk?'':'<i>'+s.r+'</i>')+'</div>';
+    }
+    h+='</div><div class="lg"><span><s style="background:#1A1A18"></s>Selected</span>'
+     +'<span><s style="background:#EDF1EF"></s>Your stay</span>'
+     +'<span><s style="background:#FBF4F3"></s>Unavailable</span></div></div><div class="tbl">';
+    CFG.seasons.forEach(function(s){h+='<div class="r"><span><b>'+s.n+'</b> <em>· min '+s.m+' nights</em></span><b>'+$$(s.r)+' / night</b></div>'});
+    h+='</div><div class="r2" style="margin-top:20px">'
+     +'<div class="fl"><label class="lb">Guests</label><select onchange="S.g=+this.value">'
+     +[2,4,6,8,10].map(function(n){return '<option value="'+n+'"'+(S.g===n?' selected':'')+'>'+n+' guests</option>'}).join('')
+     +'</select></div><div class="fl"><label class="lb">Pets</label><select onchange="S.pets=+this.value;R()">'
+     +[0,1,2].map(function(n){return '<option value="'+n+'"'+(S.pets===n?' selected':'')+'>'+(n?n+' pet'+(n>1?'s':''):'None')+'</option>'}).join('')
+     +'</select></div></div>';
+    if(S.ci&&S.co){h+=sum();if(!minOk())h+='<div class="miss"><b>Minimum stay</b>These dates require at least '+sea(S.ci).m+' nights.</div>'}
+    h+='<div class="bn"><button class="bp" onclick="S.step=1;R();scrollTo(0,0)"'+((S.ci&&S.co&&minOk())?'':' disabled')+'>Continue</button></div>';
+  }
+
+  if(S.step===1){
+    h+='<h2>Add to your stay</h2><p class="h2s">Optional. Charged with your reservation.</p>';
+    CFG.adds.forEach(function(x){
+      var on=!!S.ad[x.id];
+      var p=x.u==='night'?$$(x.p)+' / night':x.u==='session'?$$(x.p)+' / session':$$(x.p);
+      h+='<div class="ad'+(on?' on':'')+'" onclick="S.ad[\''+x.id+'\']=!S.ad[\''+x.id+'\'];R()">'
+       +'<div class="bx">'+(on?'✓':'')+'</div><div class="tx"><b>'+x.n+'</b><span>'+x.d+'</span></div>'
+       +'<div class="pr">'+p+'</div></div>';
+    });
+    h+=sum()+'<div class="bn"><button class="bs" onclick="S.step=0;R();scrollTo(0,0)">Back</button>'
+     +'<button class="bp" onclick="S.step=2;R();scrollTo(0,0)">Continue</button></div>';
+  }
+
+  if(S.step===2){
+    h+='<h2>Your details</h2><p class="h2s">We only use these to confirm your reservation.</p>'
+     +'<div class="r2"><div class="fl"><label class="lb">Full name *</label>'
+     +'<input value="'+esc(S.nm)+'" oninput="set(\'nm\',this.value)" placeholder="Your name"></div>'
+     +'<div class="fl"><label class="lb">Email *</label>'
+     +'<input type="email" value="'+esc(S.em)+'" oninput="set(\'em\',this.value)" placeholder="you@email.com"></div></div>'
+     +'<div class="fl"><label class="lb">Phone / WhatsApp *</label>'
+     +'<input type="tel" value="'+esc(S.ph)+'" oninput="set(\'ph\',this.value)" placeholder="+52 ..."></div>'
+     +'<div class="fl"><label class="lb">Special requests</label>'
+     +'<textarea oninput="S.nt=this.value" placeholder="Arrival time, celebrations, dietary needs…">'+esc(S.nt)+'</textarea></div>'
+     +sum()
+     +'<label class="agr" id="agrBox"><input type="checkbox"'+(S.ag?' checked':'')+' onchange="set(\'ag\',this.checked)">'
+     +'<span>I have read and accept the <a href="#" onclick="openMod(event)">rental agreement and cancellation policy</a>. *</span></label>'
+     +'<div class="miss" id="missBox" style="display:none"></div>'
+     +'<div class="bn"><button class="bs" onclick="S.step=1;R();scrollTo(0,0)">Back</button>'
+     +'<button class="bp" id="payBtn" onclick="goStripe()"'+(ready()?'':' disabled')+'>Continue to payment · '+$$(tot())+'</button></div>'
+     +'<p style="margin-top:12px;font-size:11.5px;color:#93908A;text-align:center">Payment is processed securely by Stripe</p>';
+  }
+
+  h+='<p class="ft">Direct booking by <a href="https://wdstudio.agency" target="_blank" rel="noopener">WD Studio</a><br>No platform. No commission.</p>';
+  a.innerHTML=h;
+  if(S.step===2)sync();
+}
+
+function sum(){
+  if(!S.ci||!S.co)return '';
+  var n=nts();
+  var h='<div class="sm"><div class="smh">Your stay</div>'
+   +'<div class="r"><span>Check-in<small>'+fdt(S.ci)+'</small></span><span style="text-align:right">Check-out<small>'+fdt(S.co)+'</small></span></div>';
+  segs().forEach(function(s){h+='<div class="r"><span>'+s.n+'<small>'+s.c+' night'+(s.c>1?'s':'')+' × '+$$(s.r)+'</small></span><b>'+$$(s.r*s.c)+'</b></div>'});
+  h+='<div class="r"><span>Cleaning fee</span><b>'+$$(CFG.clean)+'</b></div>';
+  if(S.pets>0)h+='<div class="r"><span>Pet fee<small>'+S.pets+' × '+$$(CFG.pet)+' × '+n+' nights</small></span><b>'+$$(petT())+'</b></div>';
+  CFG.adds.forEach(function(x){if(!S.ad[x.id])return;var amt=x.u==='night'?x.p*n:x.p;
+    h+='<div class="r"><span>'+x.n+(x.u==='night'?'<small>'+n+' nights × '+$$(x.p)+'</small>':'')+'</span><b>'+$$(amt)+'</b></div>'});
+  h+='<div class="r tt"><span>Total</span><b>'+$$(tot())+' USD</b></div>'
+   +'<div class="kept">Booked direct, this stay keeps <b>'+$$(tot()*0.16)+' USD</b> that a platform would have taken at 16%.</div></div>';
+  return h;
+}
+R();
+</script>
+
+
+
+</body>
+</html>

@@ -233,100 +233,107 @@
   src: url("assets/fonts/captured-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-:root{--ink:#0B0B0B;--g9:#171717;--bone:#F4F2ED;--g4:#A3A3A3;--line:#404040;--acc:#E7E5E1}
+:root{--bg:#FBFAF8;--bg2:#F1EEE8;--ink:#141412;--soft:#4F4C47;--mute:#8E8B85;--line:#E4E1DB;--gold:#B69455;--green:#2D5F56}
 *{box-sizing:border-box;margin:0}
-body{background:#050505;color:var(--bone);font-family:Inter,system-ui,sans-serif;padding:40px 24px}
-header{max-width:1400px;margin:0 auto 28px}
-h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px}
-.dek{color:var(--g4);margin-top:6px}.tag{display:inline-block;margin-top:10px;border:1px solid var(--line);padding:4px 10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--g4)}
-.grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+body{background:#ECE9E3;color:var(--ink);font-family:Inter,system-ui,sans-serif;padding:40px 24px}
+header,.grid{max-width:1400px;margin:0 auto}header{margin-bottom:28px}
+h1{font-weight:200;font-size:40px}h1 b{font-weight:600}
+.dek{color:var(--soft);margin-top:6px}.tag{display:inline-block;margin-top:10px;border:1px solid #d6d2ca;padding:4px 10px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
-.act{grid-column:1/-1;border-top:1px solid var(--line);padding-top:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--g4)}
-.cell{aspect-ratio:16/9;container-type:inline-size;position:relative;overflow:hidden;background:var(--ink);border:1px solid #222}
-.bg{position:absolute;inset:0;background-size:cover;background-position:center}
-.shade{position:absolute;inset:0}
-.serif{font-family:'Cormorant Garamond',serif;font-weight:300}
-.mono{font-size:1.1cqw;letter-spacing:.35cqw;text-transform:uppercase;color:var(--g4)}
-.meta{display:flex;justify-content:space-between;font-size:12px;letter-spacing:1.5px;color:var(--g4);margin-top:10px;text-transform:uppercase}
-.note{font-size:13px;line-height:1.5;color:#cfcac0;margin-top:6px}.note b{color:var(--bone)}
-.chip{display:inline-block;margin-top:8px;border:1px solid var(--line);font-size:11px;padding:2px 8px;color:var(--g4)}
-.wm{font-family:'Cormorant Garamond',serif;letter-spacing:.6cqw}
+.act{grid-column:1/-1;border-top:1px solid #d6d2ca;padding-top:8px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--mute)}
+.cell{aspect-ratio:16/9;container-type:inline-size;position:relative;overflow:hidden;background:var(--bg);box-shadow:0 1px 0 #d6d2ca}
+.lab{font-size:.8cqw;letter-spacing:.3cqw;text-transform:uppercase;color:var(--gold);font-weight:500}
+.wm{position:absolute;left:3cqw;top:2.6cqw;font-size:.75cqw;letter-spacing:.3cqw;color:var(--mute)}
+.l{font-weight:200}.b{font-weight:600}
+.hair{height:1px;background:var(--gold)}
+.meta{display:flex;justify-content:space-between;font-size:11px;letter-spacing:1.5px;color:var(--mute);margin-top:10px;text-transform:uppercase}
+.note{font-size:13px;line-height:1.5;color:var(--soft);margin-top:6px}.note b{color:var(--ink)}
+.chip{display:inline-block;margin-top:8px;border:1px solid #d6d2ca;font-size:11px;padding:2px 8px;color:var(--mute)}
+.card{position:absolute;background:#fff;box-shadow:0 2cqw 5cqw rgba(20,20,18,.08);overflow:hidden}
+.card img{display:block;width:100%}
 </style></head><body>
-<header><h1>WD Studio — Independence, by design. <span style="color:var(--g4)">v1</span></h1>
-<p class="dek">Cinematic agency film for villa owners: break free from OTAs, own your guests and your margin.</p>
-<span class="tag">1920×1080 · ~45s · 7 frames · no VO · music bed</span></header>
+<header><h1>WD Studio — <b>Your guest books on your site.</b> <span style="color:var(--mute)">v2</span></h1>
+<p class="dek">Silent-luxury agency film. Light deck palette, booking-system captures, no villa imagery.</p>
+<span class="tag">1920×1080 · ~45s · 7 frames · no VO · minimal piano</span></header>
 <div class="grid">
-<div class="act">Act I — Beauty & the problem</div>
+<div class="act">I — The quiet problem</div>
 
-<div><div class="cell" id="frame-01"><div class="bg" style="background-image:url(capture/assets/images/hero-desktop.jpg)"></div>
-<div class="shade" style="background:linear-gradient(90deg,rgba(11,11,11,.65),transparent 60%)"></div>
-<div style="position:absolute;left:7cqw;bottom:10cqw"><div class="mono">Costa Careyes · Villa</div>
-<div class="serif" style="font-size:5.2cqw;margin-top:1.2cqw;font-style:italic">Your property is extraordinary.</div></div></div>
-<div class="meta"><span>01 · The property</span><span>0–5s</span></div>
-<p class="note"><b>Slow push-in on the villa</b> (scale 1.0→1.08); the line fades up from below after 1.5s.</p><span class="chip">in: fade from black</span></div>
+<div><div class="cell" id="frame-01"><span class="wm">WD STUDIO</span>
+<div style="position:absolute;left:12cqw;top:44%"><div class="hair" style="width:6cqw;margin-bottom:2.5cqw"></div>
+<div class="l" style="font-size:4.6cqw;letter-spacing:-.1cqw">A guest finds your house.</div></div></div>
+<div class="meta"><span>01 · Quiet open</span><span>0–5s</span></div>
+<p class="note"><b>Gold hairline draws first</b>, then the line breathes in (opacity + 1cqw rise). Long silence before.</p><span class="chip">in: fade from canvas</span></div>
 
-<div><div class="cell" id="frame-02"><div class="bg" style="background-image:url(capture/assets/images/hero-desktop.jpg);background-position:70% 40%;transform:scale(1.25);filter:grayscale(.85) brightness(.4)"></div>
-<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center">
-<div class="serif" style="font-size:5cqw;max-width:70cqw;line-height:1.15">So why does someone else<br><i>own your guests?</i></div></div></div>
-<div class="meta"><span>02 · Who owns the guest</span><span>5–10s</span></div>
-<p class="note"><b>Colour drains from the image</b> while the question resolves line by line, centred.</p><span class="chip">in: crossfade</span></div>
+<div><div class="cell" id="frame-02"><span class="wm">WD STUDIO</span>
+<div style="position:absolute;left:12cqw;top:38%"><div class="hair" style="width:6cqw;margin-bottom:2.5cqw"></div>
+<div class="l" style="font-size:4.6cqw;color:var(--mute)">A guest finds your house.</div>
+<div class="b" style="font-size:4.6cqw;margin-top:.6cqw">Then pays a platform to book it.</div></div></div>
+<div class="meta"><span>02 · The platform</span><span>5–10s</span></div>
+<p class="note"><b>First line greys back</b>; the bold line lands beneath it. Same layout — a continuation, not a cut.</p><span class="chip">in: cut (held)</span></div>
 
-<div><div class="cell" id="frame-03"><div style="position:absolute;left:7cqw;top:12cqw"><div class="mono">The OTA commission</div>
-<div class="serif" style="font-size:20cqw;line-height:1;margin-top:0">25<span style="font-size:9cqw">%</span></div>
-<div class="serif" style="font-size:3cqw;color:var(--g4);margin-top:2cqw">of every booking, paid to OTAs.</div></div>
-<div style="position:absolute;right:7cqw;bottom:9cqw;width:34cqw;border-top:1px solid var(--line);padding-top:1.5cqw" class="serif"><span style="font-size:2.2cqw;color:var(--g4)">On $300,000 a year —</span><br><span style="font-size:3.4cqw">up to $75,000 gone.</span></div></div>
-<div class="meta"><span>03 · The drain</span><span>10–17s</span></div>
-<p class="note"><b>Number counts 0→25%</b>, then the hairline draws and the dollar line lands right.</p><span class="chip">in: blur-crossfade</span></div>
+<div><div class="cell" id="frame-03"><span class="wm">WD STUDIO</span>
+<div style="position:absolute;left:12cqw;top:26%"><div class="lab">The host fee</div>
+<div class="l" style="font-size:16cqw;line-height:1;margin-top:1cqw;letter-spacing:-.6cqw">16%</div>
+<div class="l" style="font-size:2.2cqw;color:var(--mute)">of every booking.</div></div>
+<div style="position:absolute;left:58cqw;top:40%;width:28cqw;font-size:1.3cqw;line-height:1.6;color:var(--soft)">Since September 2026, in Mexico.<br>On 50,000 USD a year — <b style="color:var(--ink)">8,000 USD</b>.<br>Every year.</div></div>
+<div class="meta"><span>03 · 16%</span><span>10–17s</span></div>
+<p class="note"><b>Number counts 0→16</b> slowly (2s, ease-out); the right column fades in line by line after.</p><span class="chip">in: crossfade</span></div>
 
-<div class="act">Act II — The turn & the proof</div>
+<div class="act">II — The alternative</div>
 
-<div><div class="cell" id="frame-04"><div style="position:absolute;left:10cqw;right:10cqw;top:50%;border-top:1px solid var(--line)"></div>
-<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-around;padding:0 8cqw" class="serif">
-<span style="font-size:4.6cqw;background:var(--ink);padding:0 1.5cqw">Your brand.</span><span style="font-size:4.6cqw;background:var(--ink);padding:0 1.5cqw">Your guests.</span><span style="font-size:4.6cqw;background:var(--ink);padding:0 1.5cqw;font-style:italic">Your margin.</span></div></div>
-<div class="meta"><span>04 · The turn</span><span>17–23s</span></div>
-<p class="note"><b>Hairline draws left→right</b>; each phrase lands on it in turn, the last in italic.</p><span class="chip">in: zoom-through</span></div>
+<div><div class="cell" id="frame-04"><span class="wm">WD STUDIO</span>
+<div style="position:absolute;left:12cqw;top:34%"><div class="lab">Direct booking</div>
+<div class="l" style="font-size:6cqw;line-height:1.05;margin-top:1.5cqw;letter-spacing:-.15cqw">Your guest books</div>
+<div class="b" style="font-size:6cqw;line-height:1.05;letter-spacing:-.15cqw">on your site.</div>
+<div style="font-size:1.3cqw;color:var(--soft);margin-top:2cqw;width:44cqw">No platform in between. No commission per reservation.</div></div></div>
+<div class="meta"><span>04 · Direct</span><span>17–22s</span></div>
+<p class="note"><b>The deck's own title treatment</b>: light line, then bold line, then the quiet sub-line.</p><span class="chip">in: crossfade</span></div>
 
-<div><div class="cell" id="frame-05"><div style="position:absolute;inset:0;display:flex;gap:2cqw;padding:9cqw 0 0 6cqw">
-<div style="flex:0 0 34cqw"><div style="height:20cqw;background:url(capture/assets/images/nautilus.jpg) center/cover"></div><div class="serif" style="font-size:2.2cqw;margin-top:1cqw">Casa Nautilus</div><div class="mono" style="font-size:.9cqw">Direct booking · no commission</div></div>
-<div style="flex:0 0 34cqw"><div style="height:20cqw;background:url(capture/assets/images/tauro.jpg) center/cover"></div><div class="serif" style="font-size:2.2cqw;margin-top:1cqw">Casa Tauro</div><div class="mono" style="font-size:.9cqw">WhatsApp booking</div></div>
-<div style="flex:0 0 34cqw"><div style="height:20cqw;background:url(capture/assets/images/triton.jpg) center/cover"></div><div class="serif" style="font-size:2.2cqw;margin-top:1cqw">Villas Tritón</div><div class="mono" style="font-size:.9cqw">Three houses, one site</div></div>
-</div><div class="mono" style="position:absolute;left:6cqw;top:4cqw">Properties that already book direct</div></div>
-<div class="meta"><span>05 · Proof</span><span>23–31s</span></div>
-<p class="note"><b>Row pans slowly right→left</b>; each card's label fades in as it passes centre.</p><span class="chip">in: crossfade</span></div>
+<div><div class="cell" id="frame-05"><span class="wm">WD STUDIO</span>
+<div class="card" style="left:8cqw;top:9cqw;width:44cqw"><img src="capture/assets/booking/ui-calendar-selected.png"></div>
+<div style="position:absolute;left:60cqw;top:24cqw;font-size:1.6cqw;line-height:2.4">
+<div class="lab" style="line-height:1">The system</div>
+<div class="l" style="margin-top:1cqw">Live availability.</div><div class="l">Your rates, your seasons.</div><div class="b">Extras you define.</div></div></div>
+<div class="meta"><span>05 · The booking</span><span>22–31s</span></div>
+<p class="note"><b>Card drifts up slowly</b>; the stay selects itself (empty → selected), then it turns to Extras. Labels arrive one by one.</p><span class="chip">in: crossfade</span></div>
 
-<div><div class="cell" id="frame-06"><div class="bg" style="background:radial-gradient(ellipse at 70% 30%,#1d1b18,#0B0B0B 70%)"></div>
-<div class="mono" style="position:absolute;left:6cqw;top:6cqw">Four things, done properly</div>
-<div style="position:absolute;left:6cqw;right:6cqw;top:16cqw;display:grid;grid-template-columns:repeat(4,1fr)">
-<div style="border-left:1px solid var(--line);padding:0 2cqw;height:24cqw"><div class="mono">01</div><div class="serif" style="font-size:2.8cqw;margin-top:8cqw">Websites</div><div class="serif" style="font-size:2cqw;color:var(--g4);font-style:italic">that rank</div></div>
-<div style="border-left:1px solid var(--line);padding:0 2cqw;height:24cqw"><div class="mono">02</div><div class="serif" style="font-size:2.8cqw;margin-top:8cqw">Direct booking</div><div class="serif" style="font-size:2cqw;color:var(--g4);font-style:italic">zero commission</div></div>
-<div style="border-left:1px solid var(--line);padding:0 2cqw;height:24cqw"><div class="mono">03</div><div class="serif" style="font-size:2.8cqw;margin-top:8cqw">Photography & film</div><div class="serif" style="font-size:2cqw;color:var(--g4);font-style:italic">shot to sell</div></div>
-<div style="border-left:1px solid var(--line);padding:0 2cqw;height:24cqw"><div class="mono">04</div><div class="serif" style="font-size:2.8cqw;margin-top:8cqw">AI concierge</div><div class="serif" style="font-size:2cqw;color:var(--g4);font-style:italic">answers 24/7</div></div>
-</div></div>
-<div class="meta"><span>06 · Services</span><span>31–38s</span></div>
-<p class="note"><b>Columns rise in sequence</b> left→right, 0.6s apart, on a warm dark ground.</p><span class="chip">in: crossfade</span></div>
+<div><div class="cell" id="frame-06"><span class="wm">WD STUDIO</span>
+<div class="card" style="left:8cqw;top:12cqw;width:40cqw"><img src="capture/assets/booking/ui-summary.png"></div>
+<div style="position:absolute;left:58cqw;top:30%"><div class="lab">Booked direct</div>
+<div class="l" style="font-size:10cqw;color:var(--green);letter-spacing:-.4cqw;margin-top:.5cqw">$530</div>
+<div class="hair" style="width:6cqw;margin:1.5cqw 0"></div>
+<div class="l" style="font-size:1.8cqw;color:var(--soft)">kept, on a single stay.</div></div></div>
+<div class="meta"><span>06 · What you keep</span><span>31–38s</span></div>
+<p class="note"><b>Slow push-in on the green note</b>, then $530 lifts out to the right, large, in green.</p><span class="chip">in: crossfade</span></div>
 
-<div class="act">Act III — The close</div>
+<div class="act">III — Signature</div>
 
-<div><div class="cell" id="frame-07"><div class="bg" style="background-image:url(capture/assets/images/hero-desktop.jpg);filter:brightness(.55)"></div>
+<div><div class="cell" id="frame-07">
 <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-<img src="capture/assets/images/logo-light.png" style="width:30cqw" alt="WD Studio">
-<div class="serif" style="font-size:3.6cqw;margin-top:3cqw;font-style:italic">Independence, by design.</div>
-<div class="mono" style="margin-top:2cqw;color:var(--bone)">wdstudio.agency</div></div></div>
-<div class="meta"><span>07 · CTA</span><span>38–45s</span></div>
-<p class="note"><b>Villa returns warm</b>, wordmark resolves from blur, tagline then URL; hold 2s.</p><span class="chip">in: blur-crossfade</span></div>
+<div class="l" style="font-size:4.4cqw">Your house. Your rules.</div><div class="b" style="font-size:4.4cqw">No platform.</div>
+<div class="hair" style="width:6cqw;margin:3cqw 0"></div>
+<div style="font-size:2cqw;letter-spacing:.8cqw;font-weight:500">WD STUDIO</div>
+<div style="font-size:1.1cqw;color:var(--mute);margin-top:1cqw">Digital identity for the world's most beautiful properties.</div>
+<div class="lab" style="margin-top:2cqw">wdstudio.agency</div></div></div>
+<div class="meta"><span>07 · Signature</span><span>38–45s</span></div>
+<p class="note"><b>Line, then the bold line</b>; hairline draws from centre; wordmark and URL settle. Hold 2s in silence.</p><span class="chip">in: crossfade</span></div>
 
-<div><div class="cell" style="padding:3cqw"><div class="mono">Seam map</div>
-<div style="display:flex;margin-top:6cqw;font-size:1.6cqw;gap:.6cqw;flex-wrap:wrap;color:var(--g4)">01 ⟶ <i>xfade</i> ⟶ 02 ⟶ <i>blur</i> ⟶ 03 ⟶ <b style="color:var(--bone)">zoom</b> ⟶ 04 ⟶ <i>xfade</i> ⟶ 05 ⟶ <i>xfade</i> ⟶ 06 ⟶ <i>blur</i> ⟶ 07</div></div>
-<div class="meta"><span>Seams</span><span>6 cuts</span></div></div>
+<div><div class="cell" style="padding:3cqw"><div class="lab">Seam map</div>
+<div style="margin-top:5cqw;font-size:1.6cqw;color:var(--soft);line-height:2">01 → <i>held cut</i> → 02 → <i>xfade</i> → 03 → <i>xfade</i> → 04 → <i>xfade</i> → 05 → <i>xfade</i> → 06 → <i>xfade</i> → 07</div>
+<div style="font-size:1.3cqw;color:var(--mute);margin-top:2cqw">Every seam is a slow dissolve on the same canvas: one continuous room.</div></div>
+<div class="meta"><span>Seams</span><span>6</span></div></div>
 
-<div><div class="cell" style="padding:3cqw"><div class="mono">Tokens</div>
-<div style="display:flex;gap:1.5cqw;margin-top:3cqw"><div style="width:9cqw;height:9cqw;background:#0B0B0B;border:1px solid #333"></div>
-<div style="width:9cqw;height:9cqw;background:#171717;border:1px solid #333"></div>
-<div style="width:9cqw;height:9cqw;background:#404040;border:1px solid #333"></div>
-<div style="width:9cqw;height:9cqw;background:#A3A3A3;border:1px solid #333"></div>
-<div style="width:9cqw;height:9cqw;background:#E7E5E1;border:1px solid #333"></div>
-<div style="width:9cqw;height:9cqw;background:#F4F2ED;border:1px solid #333"></div></div>
-<div class="serif" style="font-size:4cqw;margin-top:3cqw">Cormorant Garamond 300 — display</div>
-<div style="font-size:1.8cqw;color:var(--g4)">Inter — labels, tracked caps · 1px hairlines only · no shadows, no colour accents</div></div>
-<div class="meta"><span>Tokens</span><span>brand</span></div></div>
+<div><div class="cell" style="padding:3cqw"><div class="lab">Tokens — from the deck</div>
+<div style="display:flex;gap:1.2cqw;margin-top:3cqw"><div style="width:7cqw;height:7cqw;background:#FBFAF8;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#F1EEE8;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#E4E1DB;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#8E8B85;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#4F4C47;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#141412;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#B69455;border:1px solid #ddd"></div>
+<div style="width:7cqw;height:7cqw;background:#2D5F56;border:1px solid #ddd"></div></div>
+<div style="font-size:3.4cqw;margin-top:3cqw"><span class="l">Inter 200</span> / <span class="b">Inter 600</span></div>
+<div style="font-size:1.3cqw;color:var(--mute)">Gold = hairlines & labels only · green = money kept · no villa photos · no shadows beyond the UI card</div></div>
+<div class="meta"><span>Tokens</span><span>deck</span></div></div>
 </div></body></html>

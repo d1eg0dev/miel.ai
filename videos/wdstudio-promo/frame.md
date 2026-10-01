@@ -1,3 +1,5 @@
+<!-- WD Studio override (user direction, v2): silent-luxury light palette and Inter 200/600 type taken from wdstudio.agency/preview/deck.html.
+Display = Inter 200 (light line) paired with Inter 600 (emphasis line), as in the deck. Gold #B69455 is a hairline/label accent only; green #2D5F56 marks "money kept". No photography of villas. -->
 ---
 version: alpha
 name: Cartesian — Frame (video / frame layer)
@@ -11,31 +13,33 @@ unit: the frame — 1920×1080 primary; 9:16 and 1:1 documented
 principle: atoms are sacred · composition is free · numbers come from the script
 
 colors:
-  bg-primary: "#0B0B0B"
-  bg-secondary: "#171717"
-  text-primary: "#F4F2ED"
-  text-secondary: "#A3A3A3"
-  accent: "#E7E5E1"
-  line: "#404040"
+  bg-primary: "#FBFAF8"
+  bg-secondary: "#F1EEE8"
+  text-primary: "#141412"
+  text-secondary: "#8E8B85"
+  accent: "#B69455"
+  accent-2: "#2D5F56"
+  line: "#E4E1DB"
+  ink-soft: "#4F4C47"
   white-overlay: "rgba(255,255,255,0.3)"
 
 typography:
   # — reading ramp (Cormorant Garamond) —
-  body:        { fontFamily: "Cormorant Garamond", cqw: 1.0,  weight: 400, lineHeight: 1.6, color: "text-secondary" }
-  body-sm:     { fontFamily: "Cormorant Garamond", cqw: 0.85, weight: 400, lineHeight: 1.6 }
-  subtitle:    { fontFamily: "Cormorant Garamond", cqw: 1.3,  weight: 400, lineHeight: 1.5 }
-  label:       { fontFamily: "Cormorant Garamond", px: 14, weight: 500, tracking: "3px", upper: true, color: "accent" }
-  attribution: { fontFamily: "Cormorant Garamond", px: 15, weight: 400, tracking: "2px", upper: true, color: "accent" }
-  micro:       { fontFamily: "Cormorant Garamond", px: 12, weight: 400, tracking: "2px", upper: true, color: "accent" }
+  body:        { fontFamily: "Inter", cqw: 1.0,  weight: 400, lineHeight: 1.6, color: "text-secondary" }
+  body-sm:     { fontFamily: "Inter", cqw: 0.85, weight: 400, lineHeight: 1.6 }
+  subtitle:    { fontFamily: "Inter", cqw: 1.3,  weight: 400, lineHeight: 1.5 }
+  label:       { fontFamily: "Inter", px: 14, weight: 500, tracking: "3px", upper: true, color: "accent" }
+  attribution: { fontFamily: "Inter", px: 15, weight: 400, tracking: "2px", upper: true, color: "accent" }
+  micro:       { fontFamily: "Inter", px: 12, weight: 400, tracking: "2px", upper: true, color: "accent" }
   # — display / hero ramp (Cormorant Garamond 400, sentence case) —
-  h3:          { fontFamily: "Cormorant Garamond", cqw: 1.8, weight: 400, lineHeight: 1.1 }
-  timeline-headline:{ fontFamily: "Cormorant Garamond", cqw: 1.9, weight: 400, lineHeight: 1.1 }
-  card-headline:{ fontFamily: "Cormorant Garamond", cqw: 2.0, weight: 400, lineHeight: 1.15 }
-  stat-figure: { fontFamily: "Cormorant Garamond", cqw: 3.0, weight: 400, lineHeight: 1.0 }
-  quote-mark:  { fontFamily: "Cormorant Garamond", cqw: 9.0, weight: 400, lineHeight: 0.5, color: "line" }
-  h2:          { fontFamily: "Cormorant Garamond", cqw: 4.0, weight: 400, lineHeight: 1.1 }
-  h1:          { fontFamily: "Cormorant Garamond", cqw: 6.2, weight: 400, lineHeight: 1.06 }
-  display:     { fontFamily: "Cormorant Garamond", cqw: 8.0, weight: 400, lineHeight: 1.04 }
+  h3:          { fontFamily: "Inter", cqw: 1.8, weight: 400, lineHeight: 1.1 }
+  timeline-headline:{ fontFamily: "Inter", cqw: 1.9, weight: 400, lineHeight: 1.1 }
+  card-headline:{ fontFamily: "Inter", cqw: 2.0, weight: 400, lineHeight: 1.15 }
+  stat-figure: { fontFamily: "Inter", cqw: 3.0, weight: 400, lineHeight: 1.0 }
+  quote-mark:  { fontFamily: "Inter", cqw: 9.0, weight: 400, lineHeight: 0.5, color: "line" }
+  h2:          { fontFamily: "Inter", cqw: 4.0, weight: 400, lineHeight: 1.1 }
+  h1:          { fontFamily: "Inter", cqw: 6.2, weight: 400, lineHeight: 1.06 }
+  display:     { fontFamily: "Inter", cqw: 8.0, weight: 400, lineHeight: 1.04 }
 
 spacing:
   pad-x: "7cqw"

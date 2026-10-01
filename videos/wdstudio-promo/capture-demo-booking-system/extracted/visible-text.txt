@@ -1,0 +1,74 @@
+[div] Interactive demo  ·
+[b] No real charges
+[div] ·  WD Studio
+[h1] Reserve
+[b] Casa Aurora
+[p] Four suites, up to ten guests. Pool, terrace and the sea a few steps away.
+[p] This is a working demo · Built by WD Studio · wdstudio.agency
+[span] Dates
+[span] Extras
+[span] Details
+[h3] December 2026
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 495
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[i] 690
+[span] Selected
+[span] Your stay
+[span] Unavailable
+[b] High season
+[em] · min 4 nights
+[b] $690 / night
+[b] Mid season
+[em] · min 3 nights
+[b] $495 / night
+[b] Green season
+[em] · min 2 nights
+[b] $390 / night
+[label] Guests
+[option] 2 guests
+[option] 4 guests
+[option] 6 guests
+[option] 8 guests
+[option] 10 guests
+[label] Pets
+[option] None
+[option] 1 pet
+[option] 2 pets
+[button] Continue
+[p] Direct booking by
+[a] WD Studio
+[p] No platform. No commission.
+[h4] Rental agreement & cancellation policy
+[b] Reservation.
+[p] A reservation is confirmed once payment is received. The guest count stated at booking may not be exceeded without written approval.
+[b] Cancellation.
+[p] More than 60 days before arrival, the deposit is refunded in full. Between 30 and 60 days, 50% is refunded. Under 30 days, the reservation is non-refundable.
+[b] Check-in and check-out.
+[p] Check-in from 15:00. Check-out by 11:00. Early arrival or late departure subject to availability.
+[b] Damages.
+[p] The guest is responsible for any damage to the property or its contents during the stay.
+[b] House rules.
+[p] No events or parties without prior written approval. Quiet hours from 22:00. Smoking is not permitted indoors.
+[p] This is demonstration text. In production this links to the property's own signed agreement.
+[button] Close

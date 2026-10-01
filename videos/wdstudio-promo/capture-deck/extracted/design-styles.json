@@ -1,0 +1,88 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Inter",
+      "fontSize": "83.2px",
+      "fontWeight": "200",
+      "lineHeight": "84.864px",
+      "letterSpacing": "-2.912px",
+      "color": "#FFFFFF",
+      "sampleText": "Your guest bookson your site."
+    },
+    {
+      "role": "body",
+      "fontFamily": "Inter",
+      "fontSize": "20px",
+      "fontWeight": "300",
+      "lineHeight": "33px",
+      "letterSpacing": "normal",
+      "color": "#B8B4AC",
+      "sampleText": "A complete booking system installed on your own website. No "
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      5,
+      8,
+      14
+    ],
+    "baseUnit": 8
+  },
+  "radius": [
+    "2px"
+  ],
+  "shadows": [],
+  "buttons": [
+    {
+      "label": "ES",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#8E8B85",
+      "padding": "5px 8px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(142, 139, 133)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "400",
+      "height": "26.5px"
+    },
+    {
+      "label": "EN",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#141412",
+      "padding": "5px 8px",
+      "borderRadius": "0px",
+      "border": "0px none rgb(20, 20, 18)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "600",
+      "height": "26.5px"
+    },
+    {
+      "label": "‹",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#4F4C47",
+      "padding": "0px",
+      "borderRadius": "2px",
+      "border": "1px solid rgb(228, 225, 219)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": "34px"
+    }
+  ],
+  "cards": [],
+  "nav": null,
+  "chips": [],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": []
+}

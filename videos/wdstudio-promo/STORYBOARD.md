@@ -1,135 +1,142 @@
 ---
 format: 1920x1080
 duration: 45s
-message: "Own your digital footprint and break free from OTAs — keep more of every booking"
-arc: Hook (beauty) → Problem (OTA drain) → Turn (ownership) → Proof (properties) → Solution (four services) → CTA
+message: "Your guest books on your site — no platform, no commission"
+arc: Quiet hook → The fee → The alternative → The product, calmly → What you keep → Signature
 audience: Luxury villa owners and hospitality businesses
 mode: collaborative
-music: cinematic ambient luxury underscore, warm piano and strings, slow build, elegant
+music: silent luxury minimal piano, sparse, warm, slow, refined
 ---
 
-## Frame 1 — The property
+## Changes from v1
 
-- scene: Slow push-in on the pink palapa villa at dusk; serif line fades in low-left
+- User: use booking-system captures (wdstudio.agency/preview/demo-booking-system.html) instead of client villas; no live client is promoted.
+- User: take elements and colours from the deck (wdstudio.agency/preview/deck.html); light is the main colour, not dark.
+- User: do not use the villa hero image.
+- User: "silent luxury" narrative — fewer words, more space, understatement.
+
+## Frame 1 — Quiet open
+
+- scene: Warm off-white canvas. A thin gold hairline draws left→right. Small tracked label "WD STUDIO". One light line fades in: "A guest finds your house."
 - voiceover: ""
-- onscreen: "Your property is extraordinary."
+- onscreen: "A guest finds your house."
 - duration: 5s
 - transition_in: crossfade
 - status: built
-- src: compositions/frames/01-property.html
+- src: compositions/frames/01-open.html
 - type: hook
-- persuasion: Status seeking
-- beat: awe
-- blueprint: camera-journey
-- asset_candidates: assets/hero-desktop.jpg — pink palapa villa, infinity pool, palms at dusk
+- persuasion: Understatement
+- beat: calm curiosity
+- blueprint: titlecard-reveal
+- asset_candidates:
 
-narrativeRole: Open on what the owner is proud of — beauty first, no selling yet.
-keyMessage: This is a world-class property.
+narrativeRole: Begin in silence and space — the brand speaks softly.
+keyMessage: It starts with your guest.
 
-## Frame 2 — But who owns the guest?
+## Frame 2 — Then pays a platform
 
-- scene: Image slowly desaturates and dims; the line turns: "So why does someone else own your guests?"
+- scene: The line stays; a second line in Inter 600 lands beneath: "Then pays a platform to book it."
 - voiceover: ""
-- onscreen: "So why does someone else own your guests?"
+- onscreen: "Then pays a platform to book it."
 - duration: 5s
+- transition_in: cut
+- status: built
+- src: compositions/frames/02-platform.html
+- type: problem
+- persuasion: Negative contrast
+- beat: quiet tension
+- blueprint: kinetic-type-beats
+- asset_candidates:
+
+narrativeRole: Name the intermediary without drama.
+keyMessage: Someone stands between you and your guest.
+
+## Frame 3 — 16%
+
+- scene: Large Inter 200 "16%" counts up from 0; small gold label "THE HOST FEE"; right column, small type: "Since September 2026, in Mexico. On 50,000 USD a year — 8,000 USD. Every year."
+- voiceover: ""
+- onscreen: "16% of every booking. On 50,000 USD a year — 8,000 USD. Every year."
+- duration: 7s
 - transition_in: crossfade
 - status: built
-- src: compositions/frames/02-question.html
-- type: problem
-- persuasion: Pain agitation
-- beat: tension
-- blueprint: kinetic-type-beats
-- asset_candidates: assets/hero-desktop.jpg — hero villa, tighter crop, desaturated
-
-narrativeRole: Turn pride into unease — the OTA sits between owner and guest.
-keyMessage: Your guests belong to the platform, not to you.
-
-## Frame 3 — The commission drain
-
-- scene: Black ground; a large serif number counts up 0% → 25%, caption "of every booking, paid to OTAs", then a year-figure line "On $300,000 a year: up to $75,000 gone."
-- voiceover: ""
-- onscreen: "Up to 25% of every booking. Paid to OTAs. On $300,000 a year — up to $75,000 gone."
-- duration: 7s
-- transition_in: blur-crossfade
-- status: built
-- src: compositions/frames/03-drain.html
+- src: compositions/frames/03-fee.html
 - type: problem
 - persuasion: Statistical proof
-- beat: frustration
+- beat: clarity
 - blueprint: dataviz-countup
-- asset_candidates:
+- asset_candidates: assets/s02.png — deck slide "16% of every booking" (layout reference only)
 
-narrativeRole: Quantify the pain so the margin loss is felt, not abstract.
-keyMessage: OTAs take a quarter of your revenue.
+narrativeRole: Quantify the cost quietly, with the deck's own figures.
+keyMessage: The fee is real and recurring.
 
-## Frame 4 — The turn
+## Frame 4 — Your guest books on your site
 
-- scene: Hairline draws across the frame; three short lines land one by one: "Your brand." "Your guests." "Your margin."
+- scene: Deck title treatment: "Your guest books" (200) / "on your site." (600). Above it, gold label "DIRECT BOOKING".
 - voiceover: ""
-- onscreen: "Your brand. Your guests. Your margin."
-- duration: 6s
-- transition_in: zoom-through
-- status: built
-- src: compositions/frames/04-turn.html
-- type: solution
-- persuasion: Rule of three
-- beat: relief + control
-- blueprint: kinetic-type-beats
-- asset_candidates:
-
-narrativeRole: The pivot — ownership is the answer to dependence.
-keyMessage: Independence is possible.
-
-## Frame 5 — Properties that already live online
-
-- scene: Slow lateral pan across WD client properties; each carries a small label (Casa Nautilus — direct booking, no commission; Casa Tauro — WhatsApp booking; Villas Tritón)
-- voiceover: ""
-- onscreen: "Properties that already book direct."
-- duration: 8s
+- onscreen: "Your guest books on your site."
+- duration: 5s
 - transition_in: crossfade
 - status: built
-- src: compositions/frames/05-proof.html
+- src: compositions/frames/04-direct.html
+- type: solution
+- persuasion: Reframe
+- beat: relief
+- blueprint: titlecard-reveal
+- asset_candidates: assets/s01.png — deck title slide (layout reference only)
+
+narrativeRole: The turn — the alternative, stated as simply as possible.
+keyMessage: Direct booking, on your own website.
+
+## Frame 5 — The booking, calmly
+
+- scene: The booking UI floats on the canvas as a soft card with a slow drift. Dates step: check-in and range resolve (empty → selected crossfade); then crossfades to Extras. Side labels: "Live availability." "Your rates, your seasons." "Extras you define."
+- voiceover: ""
+- onscreen: "Live availability. Your rates. Your extras."
+- duration: 9s
+- transition_in: crossfade
+- status: built
+- src: compositions/frames/05-booking.html
 - type: proof
-- persuasion: Social proof
-- beat: trust
-- blueprint: spatial-pan-stations
-- asset_candidates: assets/nautilus.jpg — villa beneath a palapa, direct booking; assets/tauro.jpg — oceanfront house, WhatsApp booking; assets/triton.jpg — three cliffside houses; assets/candelabros.jpg — editorial villa
+- persuasion: Show-don't-tell proof
+- beat: ease + control
+- blueprint: device-surface-showcase
+- asset_candidates: assets/ui-calendar-empty.png — booking calendar, no dates; assets/ui-calendar-selected.png — calendar with stay selected; assets/ui-extras.png — extras step
 
-narrativeRole: Prove the shift is real — WD clients already take bookings without OTAs.
-keyMessage: It already works for villas like yours.
+narrativeRole: Show the product working — elegant, simple, owned.
+keyMessage: A complete booking system on your site.
 
-## Frame 6 — Four things, done properly
+## Frame 6 — What you keep
 
-- scene: Four columns separated by hairlines reveal in sequence: Websites · Direct booking · Photography & film · AI concierge — each with a one-line benefit
+- scene: The "Your stay" summary card centred; slow push-in to the green note "Booked direct, this stay keeps $530 USD…"; then "$530" lifts out large in green with a gold hairline: "kept, on a single stay."
 - voiceover: ""
-- onscreen: "Websites that rank. Direct booking, zero commission. Photography & film. AI that answers 24/7."
+- onscreen: "$530 kept. On a single stay."
 - duration: 7s
 - transition_in: crossfade
 - status: built
-- src: compositions/frames/06-services.html
-- type: solution
-- persuasion: Value stacking
-- beat: confidence
-- blueprint: grid-card-assemble
-- asset_candidates:
+- src: compositions/frames/06-kept.html
+- type: proof
+- persuasion: Feature-to-benefit translation
+- beat: satisfaction
+- blueprint: zoom-out-workspace-reveal
+- asset_candidates: assets/ui-summary.png — "Your stay" summary with $530 kept note
 
-narrativeRole: Show the complete digital footprint WD builds.
-keyMessage: One studio builds your whole direct channel.
+narrativeRole: Make the margin tangible, with the system's own receipt.
+keyMessage: Every direct booking keeps the fee in your pocket.
 
-## Frame 7 — CTA
+## Frame 7 — Signature
 
-- scene: Hero villa returns, warm; WD STUDIO wordmark resolves center; line "Independence, by design." and URL wdstudio.agency
+- scene: Canvas clears. "Your house. Your rules." (200) / "No platform." (600). Hairline, then WD STUDIO tracked wordmark, "Digital identity for the world's most beautiful properties.", wdstudio.agency.
 - voiceover: ""
-- onscreen: "Independence, by design. — wdstudio.agency"
+- onscreen: "Your house. Your rules. No platform. — WD STUDIO · wdstudio.agency"
 - duration: 7s
-- transition_in: blur-crossfade
+- transition_in: crossfade
 - status: built
-- src: compositions/frames/07-cta.html
+- src: compositions/frames/07-signature.html
 - type: cta
-- persuasion: Future pacing
-- beat: aspiration + urgency-to-act
+- persuasion: Identity / status
+- beat: quiet confidence
 - blueprint: logo-assemble-lockup
-- asset_candidates: assets/logo-light.png — WD STUDIO wordmark for dark grounds; assets/hero-desktop.jpg — hero villa
+- asset_candidates: assets/logo-dark.png — WD STUDIO wordmark for light grounds
 
-narrativeRole: Close the loop — back to the property, now owned outright; one clear action.
-keyMessage: Start with WD Studio at wdstudio.agency.
+narrativeRole: Close with the deck's line and the studio's signature.
+keyMessage: WD Studio — wdstudio.agency.
