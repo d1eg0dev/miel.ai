@@ -15,7 +15,7 @@ music: cinematic ambient luxury underscore, warm piano and strings, slow build, 
 - onscreen: "Your property is extraordinary."
 - duration: 5s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/01-property.html
 - type: hook
 - persuasion: Status seeking
@@ -33,13 +33,13 @@ keyMessage: This is a world-class property.
 - onscreen: "So why does someone else own your guests?"
 - duration: 5s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/02-question.html
 - type: problem
 - persuasion: Pain agitation
 - beat: tension
 - blueprint: kinetic-type-beats
-- asset_candidates: assets/copal.jpg — amber villa in jungle by the sea
+- asset_candidates: assets/hero-desktop.jpg — hero villa, tighter crop, desaturated
 
 narrativeRole: Turn pride into unease — the OTA sits between owner and guest.
 keyMessage: Your guests belong to the platform, not to you.
@@ -51,7 +51,7 @@ keyMessage: Your guests belong to the platform, not to you.
 - onscreen: "Up to 25% of every booking. Paid to OTAs. On $300,000 a year — up to $75,000 gone."
 - duration: 7s
 - transition_in: blur-crossfade
-- status: outline
+- status: built
 - src: compositions/frames/03-drain.html
 - type: problem
 - persuasion: Statistical proof
@@ -69,7 +69,7 @@ keyMessage: OTAs take a quarter of your revenue.
 - onscreen: "Your brand. Your guests. Your margin."
 - duration: 6s
 - transition_in: zoom-through
-- status: outline
+- status: built
 - src: compositions/frames/04-turn.html
 - type: solution
 - persuasion: Rule of three
@@ -87,7 +87,7 @@ keyMessage: Independence is possible.
 - onscreen: "Properties that already book direct."
 - duration: 8s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/05-proof.html
 - type: proof
 - persuasion: Social proof
@@ -105,13 +105,13 @@ keyMessage: It already works for villas like yours.
 - onscreen: "Websites that rank. Direct booking, zero commission. Photography & film. AI that answers 24/7."
 - duration: 7s
 - transition_in: crossfade
-- status: outline
+- status: built
 - src: compositions/frames/06-services.html
 - type: solution
 - persuasion: Value stacking
 - beat: confidence
 - blueprint: grid-card-assemble
-- asset_candidates: assets/pacific.jpg — aerial Careyes bay (soft background behind the grid)
+- asset_candidates:
 
 narrativeRole: Show the complete digital footprint WD builds.
 keyMessage: One studio builds your whole direct channel.
@@ -123,7 +123,7 @@ keyMessage: One studio builds your whole direct channel.
 - onscreen: "Independence, by design. — wdstudio.agency"
 - duration: 7s
 - transition_in: blur-crossfade
-- status: outline
+- status: built
 - src: compositions/frames/07-cta.html
 - type: cta
 - persuasion: Future pacing

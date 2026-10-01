@@ -1,0 +1,11 @@
+{
+  "provider": "auto",
+  "speed": 1,
+  "lines": [],
+  "bgm": {
+    "mode": "retrieve",
+    "query": "cinematic ambient luxury underscore, warm piano and strings, slow build, elegant",
+    "blob": "Own your digital footprint and break free from OTAs — keep more of every booking",
+    "arc": "Hook (beauty) → Problem (OTA drain) → Turn (ownership) → Proof (properties) → Solution (four services) → CTA"
+  }
+}
