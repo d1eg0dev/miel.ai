@@ -42,11 +42,10 @@ F['01-open']=(5,'''
 <div id="f01-wrap"><div id="f01-hair" class="f01open-hair"></div><div id="f01-l1">A guest finds your house.</div></div>''','''
 tl.fromTo("#f01-hair",{scaleX:0},{scaleX:1,duration:1.2,ease:"power2.inOut"},0.2);
 tl.fromTo("#f01-l1",{opacity:0,y:16},{opacity:1,y:0,duration:1.4,ease:"power3.out"},1.2);
-tl.fromTo("#f01-wrap",{y:0},{y:-8,duration:5,ease:"none"},0);
 tl.fromTo(".f01open-wm",{opacity:0},{opacity:1,duration:1.5,ease:"power1.out"},0);
 ''')
 F['02-platform']=(5,'''
-#f02-wrap{position:absolute;left:230px;top:462px}
+#f02-wrap{position:absolute;left:230px;top:470px}
 #f02-hair{width:115px}
 #f02-l1{font-size:88px;letter-spacing:-2px;margin-top:40px;font-weight:200}
 #f02-l2{font-size:88px;letter-spacing:-2px;margin-top:8px;font-weight:600}

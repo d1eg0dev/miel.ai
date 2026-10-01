@@ -35,14 +35,13 @@ window.__timelines["{fid}"]=tl;
 F={}
 # 01
 F['01-open']=(5,'''
-#f01-wrap{position:absolute;left:110px;right:110px;top:850px}
+#f01-wrap{position:absolute;left:110px;right:110px;top:820px}
 #f01-hair{width:115px}
-#f01-l1{font-size:76px;line-height:1.15;letter-spacing:-2px;margin-top:40px;font-weight:200}
+#f01-l1{font-size:72px;line-height:1.15;letter-spacing:-2px;margin-top:40px;font-weight:200}
 ''','''<div class="f01open-wm">WD STUDIO</div>
 <div id="f01-wrap"><div id="f01-hair" class="f01open-hair"></div><div id="f01-l1">A guest finds your house.</div></div>''','''
 tl.fromTo("#f01-hair",{scaleX:0},{scaleX:1,duration:1.2,ease:"power2.inOut"},0.2);
 tl.fromTo("#f01-l1",{opacity:0,y:16},{opacity:1,y:0,duration:1.4,ease:"power3.out"},1.2);
-tl.fromTo("#f01-wrap",{y:0},{y:-8,duration:5,ease:"none"},0);
 tl.fromTo(".f01open-wm",{opacity:0},{opacity:1,duration:1.5,ease:"power1.out"},0);
 ''')
 F['02-platform']=(5,'''
