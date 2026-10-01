@@ -1,0 +1,34 @@
+<template>
+<div id="root" data-composition-id="07-rules" data-start="0" data-duration="5.5" data-width="1080" data-height="1920">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;src:url("assets/fonts/captured-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format('woff2');}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter',sans-serif;color:#141412}
+.f07rules-bg{position:absolute;inset:0;background:#FBFAF8}
+.f07rules-wm{position:absolute;left:0;right:0;text-align:center;top:140px;font-size:13px;letter-spacing:5px;color:#75736E;font-weight:500}
+.f07rules-lab{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#8A7040;font-weight:500}
+.f07rules-hair{height:1px;background:#B69455;transform-origin:left center}
+.f07rules-l{font-weight:200} .f07rules-b{font-weight:600}
+
+#f07-wrap{position:absolute;left:60px;right:60px;top:740px;text-align:center}
+.f07-big{font-size:100px;letter-spacing:-3px;line-height:1.12}
+
+</style>
+<div id="f07rules-ground" class="clip f07rules-bg" data-start="0" data-duration="5.5" data-track-index="0"></div>
+<div id="f07rules-content" class="clip" data-start="0" data-duration="5.5" data-track-index="1" style="position:absolute;inset:0">
+<div id="f07-wrap"><div class="f07-big f07rules-l" id="f07-a">Your house.<br>Your rules.</div><div class="f07-big f07rules-b" id="f07-b">No platform.</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function(){
+window.__timelines=window.__timelines||{};
+const tl=gsap.timeline({paused:true});
+
+tl.fromTo("#f07-a",{opacity:0,y:18},{opacity:1,y:0,duration:1.3,ease:"power3.out"},0.2);
+tl.fromTo("#f07-b",{opacity:0,y:18},{opacity:1,y:0,duration:1.2,ease:"power3.out"},1.4);
+tl.fromTo("#f07-wrap",{y:0},{y:-6,duration:5,ease:"none",immediateRender:false},0);
+
+window.__timelines["07-rules"]=tl;
+})();
+</script>
+</div>
+</template>

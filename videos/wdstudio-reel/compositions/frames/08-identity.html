@@ -1,0 +1,36 @@
+<template>
+<div id="root" data-composition-id="08-identity" data-start="0" data-duration="4.5" data-width="1080" data-height="1920">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;src:url("assets/fonts/captured-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format('woff2');}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter',sans-serif;color:#141412}
+.f08identity-bg{position:absolute;inset:0;background:#FBFAF8}
+.f08identity-wm{position:absolute;left:0;right:0;text-align:center;top:140px;font-size:13px;letter-spacing:5px;color:#75736E;font-weight:500}
+.f08identity-lab{font-size:15px;letter-spacing:5px;text-transform:uppercase;color:#8A7040;font-weight:500}
+.f08identity-hair{height:1px;background:#B69455;transform-origin:left center}
+.f08identity-l{font-weight:200} .f08identity-b{font-weight:600}
+
+#f08-wrap{position:absolute;left:80px;right:80px;top:800px;text-align:center}
+#f08-hair{width:115px;margin:0 auto 52px;transform-origin:center}
+#f08-desc{font-size:54px;font-weight:200;letter-spacing:-1px;line-height:1.25}
+#f08-url{margin-top:56px;font-size:24px}
+
+</style>
+<div id="f08identity-ground" class="clip f08identity-bg" data-start="0" data-duration="4.5" data-track-index="0"></div>
+<div id="f08identity-content" class="clip" data-start="0" data-duration="4.5" data-track-index="1" style="position:absolute;inset:0">
+<div id="f08-wrap"><div class="f08identity-hair" id="f08-hair"></div><div id="f08-desc">Digital identity<br>for the world's most<br>beautiful properties.</div><div class="f08identity-lab" id="f08-url">wdstudio.agency</div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+(function(){
+window.__timelines=window.__timelines||{};
+const tl=gsap.timeline({paused:true});
+
+tl.fromTo("#f08-hair",{scaleX:0},{scaleX:1,duration:0.9,ease:"power2.inOut"},0.1);
+tl.fromTo("#f08-desc",{opacity:0,y:16},{opacity:1,y:0,duration:1.2,ease:"power3.out"},0.5);
+tl.fromTo("#f08-url",{opacity:0},{opacity:1,duration:0.9,ease:"power1.out"},1.7);
+
+window.__timelines["08-identity"]=tl;
+})();
+</script>
+</div>
+</template>
